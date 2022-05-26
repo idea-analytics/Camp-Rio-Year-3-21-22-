@@ -1,0 +1,220 @@
+---
+title: "Camp Rio 2021-2022 survey participation"
+author: "aline Orr"
+date: "3/27/2022"
+output: html_notebook
+---
+
+load libraries
+```{r}
+library(remotes)
+#renv::install("idea-analytics/ideadata")
+library(ideadata)
+#library(ideacolors)
+#library(ProjectTemplate)
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(readxl)
+library(readr)
+```
+
+Create a new connection with PROD1
+```{r}
+#create_connection(.server_name = "1065574-SQLPRD1", .database_name = "PROD1"), env = globalenv())
+```
+
+
+Bring in school and student data, rename student vars, recode LEP, recode race vars as numeric, left join tables
+```{r}
+
+stu_data <- get_table(.table_name = "Students", .database_name = "PROD1", .schema = "Schools", .server_name = "RGVPDSD-DWPRD1") %>%
+  filter(AcademicYear == "2021-2022", RowIsCurrent == 1) %>%
+  select(StudentNumber,
+         FirstName,
+         MiddleInitial,
+         LastName,
+         AcademicYear,
+         SchoolNumber,
+         GradeLevelID,
+         ExitDate,
+         Gender,
+         SPED,
+         AtRisk = AtRiskFlag,
+         ECD = ECDFlag,
+         LEP = ELLCode,
+         RISEcode = InstructionalSettingCode, 
+         Hispanic = FederalHispanicFlag, 
+         Am_Indian = FederaRaceI,
+         Asian = FederaRaceA, 
+         Black = FederaRaceB, 
+         P_Islander = FederaRaceP, 
+         White = FederaRaceW) %>%
+ 
+mutate(StudentNumber = as.numeric(StudentNumber),
+        ECD = as.numeric(ECD),
+         #ECD = if_else(ECD %in% c(0,NA),0,1),
+         #LEP = case_when(LEP %in% c("0", "F", "S", "3", "4") ~ "Non-EL",
+          #LEP == "1" ~ "EL",
+         LEP = if_else(LEP %in% c("0","F","S","3","4"),0,1),
+         SPED = if_else(SPED =="TRUE","1","0"),
+         AtRisk = if_else(AtRisk == "TRUE", 1,0),
+         RISEcode = if_else(RISECode %in% c(43,44),1,0),
+         Other = case_when(P_Islander ==1 ~1, Am_Indian ==1 ~1),
+         Other = as.numeric(if_else(Other ==1,1,0)),
+         Hispanic = as.numeric(Hispanic),
+         White = as.numeric(White),
+         Black = as.numeric(Black),
+         Asian = as.numeric(Asian)) %>%
+  #use this when you can not use rowiscurrent to keep only one grade level, this can also be used as max school number to keep only one school. Again, make sure to group by student first.
+   group_by(StudentNumber)%>%
+  mutate(GradeLevelID = max(GradeLevelID))%>% 
+  select(-P_Islander, -Am_Indian)%>%
+  distinct()%>%
+  ungroup()%>%
+  collect()
+write.csv(stu_data, "Student data.csv")
+
+schl_data <- get_table(.table_name = "Schools", .database_name = "PROD1", .schema = "Schools", .server_name = "1065574-SQLPRD1") %>%
+  select(SchoolNumber, SchoolShortName) %>%
+  collect()
+  write.csv(schl_data,"School names_2022.csv")
+
+stdtable <- left_join(std_data, schl_data, by = "SchoolNumber")%>%
+ # filter((SchoolShortName != "Robindale" & RISEcode == "1") &
+  #       (SchoolShortName != "Mission" & RISEcode =="1") &
+   #      (SchoolShortName != "San Juan CP" & GradeLevelID == "11" & RISEcode == "1"))%>%
+  collect()
+
+```
+
+Recode Race variables into one RaceEthnicity variable
+```{r}
+# Need to give students mutually exclusive, collectively exhaustive race categories
+# IF hispanic than hispanic and no other race
+# If more than one race, then code as multi-racial,
+# if no races indicated, then code as such
+Stu_demg <- stdtable %>%
+  #the code below gives precedence to Hispanic, if hisp than all other races are set to 0
+  mutate(White = if_else(Hispanic == 1,0,White),
+         Black = if_else(Hispanic == 1,0,Black),
+         Asian = if_else(Hispanic == 1,0,Asian),
+         Other = if_else(Hispanic == 1,0,Other))%>%
+  #the code below creates a multi-race variable and a missing (none) race var
+  mutate(total_race = (Hispanic + White + Black + Asian + Other),
+         Multi = if_else(total_race>1,1,0),
+         None = if_else(total_race ==0,1,0))%>%
+  #except for Hispanic, which tramples all other races, the code below sets each ethnicity to 0 if the student indicated multiple races
+  mutate(Hispanic = if_else(Multi ==1,0,Hispanic),
+         White = if_else(Multi == 1,0,White),
+         Black = if_else(Multi == 1,0,Black),
+         Asian = if_else(Multi == 1,0,Asian),
+         Other = if_else(Multi ==1,0,Other))%>%
+  mutate(Other = if_else(Multi==1|Other==1|None==1,1,0))%>%
+  #dropping some vars
+  select(-total_race,-Multi,-None)%>%
+ 
+  #the code below puts the race indicator into a single column
+  pivot_longer(Hispanic:Other, names_to="Race",values_to="race_indicator")%>%
+  filter(race_indicator==1)%>%
+  select(-race_indicator) %>%
+  distinct()
+ # write_csv(Stu_demg, "Student demographics.csv")
+         
+```
+
+
+Bring in survey data from 3/27/2022 and merge with student data to get school enrolled information.
+```{r}
+CRA_2022b <- read_xlsx("~/Camp-Rio-Year-3-21-22-/data/Camp RIO Survey_Academy_21-22.xlsx")%>%
+  select(CompletionTime = 'Completion time',
+          Name,
+          Student_Number = 'Please enter your Student ID number.',
+          SchoolName = 'Which campus do you attend?',
+          GradeLevel = 'Which grade are you currently in?',
+          FullName = 'Please enter your first and last name.',
+          ) %>%
+  mutate(Student_Number = as.numeric(Student_Number),
+          CompletionTime = as.character(CompletionTime),
+          CompletionTime = as_date(CompletionTime))%>%
+  separate(FullName, c('First_Name', 'Middle_Name', 'LastName'))
+
+CRA_2022 <- CRA_2022b %>%
+  mutate(Last_Name = if_else(is.na(LastName), Middle_Name, LastName),
+         Middle_Initial = substr(Middle_Name, 1,2)) %>%
+  select(-Middle_Name, -LastName)
+
+CRA_campus_ID <- left_join(CRA_2022, Stu_demg, by=c("Student_Number"="StudentNumber"))%>%
+  filter(SchoolNumber != " ")%>%
+  select(-FirstName, -MiddleInitial, -LastName)
+#write_csv(CRA_campus_ID,"data/Survey_files/CRA_surveydata_and_correct_campus.csv")
+
+CRA_campus_name <- left_join(CRA_2022, Stu_demg, by=c("Last_Name"="LastName", "First_Name"="FirstName", "Middle_Initial"="MiddleInitial"))%>%
+  filter(SchoolNumber != " ")%>%
+select(-StudentNumber)
+
+CRA_AllStudents <- bind_rows(CRA_campus_ID, CRA_campus_name)
+write.csv(CRA_AllStudents, "data/Survey_files/CRA_SurveyParticipants_CleanID.csv")
+
+
+CRCP_2022b <- read_xlsx("data/Survey_files/Camp RIO Survey_CollegePrep_21-22.xlsx")%>%
+  select(CompletionTime = 'Completion time',
+         Name,
+         Student_Number = 'Please enter your Student ID number.',
+         SchoolName = 'Which campus do you attend?',
+         GradeLevel = 'Which grade are you currently in?',
+         FullName = 'Please enter your name.'
+         )%>%
+  mutate(Student_Number = as.numeric(Student_Number),
+         CompletionTime = as.character(CompletionTime),
+         CompletionTime = as_date(CompletionTime)) %>%
+   separate(FullName, c('First_Name', 'Middle_Name', 'LastName'))
+
+CRCP_2022 <- CRCP_2022b %>%
+  mutate(Last_Name = if_else(is.na(LastName), Middle_Name, LastName),
+         Middle_Initial = substr(Middle_Name, 1,2)) %>%
+  select(-Middle_Name, -LastName)
+
+CRCP_campus_ID <- left_join(CRCP_2022, Stu_demg, by=c("Student_Number"="StudentNumber"))%>%
+  filter(SchoolNumber != " ")%>%
+  select(-FirstName, -MiddleInitial, -LastName)
+write_csv(CRCP_campus_ID, "data/Survey_files/CRCP_surveydata_and_correct_campus.csv")
+
+CRCP_campus_name <- left_join(CRCP_2022, Stu_demg, by=c("Last_Name"="LastName", "First_Name"="FirstName", "Middle_Initial"="MiddleInitial"))%>%
+  filter(SchoolNumber != " ")%>%
+select(-StudentNumber)
+
+#Std_demg <- read_csv("Student demographics.csv")%>%
+ # mutate(StudentNumber = as.character(StudentNumber))
+
+CRCP_AllStudents <- bind_rows(CRCP_campus_ID, CRCP_campus_name)
+write.csv(CRA_AllStudents,"data/Survey_files/CRCP_SurveyParticipants_CleanID.csv")
+
+
+
+```
+
+Merge survey info by name
+```{r}
+CRA_campus_name <- left_join(CRA_2022, Std_demg, by = "LastName", "FirstName")%>%
+  collect()
+
+
+```
+
+
+
+Tabulate data
+```{r}
+
+CRCP_SummarizedbyDate <- CRCP_campus %>%
+  group_by(SchoolShortName, CompletionTime)%>%
+  summarize(n_students = n())
+CRCP_SummarizedbyDate
+
+CRA_SummarizedbyDate <- CRA_campus %>%
+  group_by(SchoolShortName, CompletionTime) %>%
+  summarize(n_students = n())
+CRA_SummarizedbyDate
+
+```
