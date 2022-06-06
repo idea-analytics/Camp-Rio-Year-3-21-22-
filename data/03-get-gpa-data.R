@@ -18,9 +18,11 @@
 #   filter(AcademicYear == "2021-2022")
 
 
-df_gpa <- get_table(.table_name = "StudentAcademicSummary",
+raw_gpa <- get_table(.table_name = "StudentAcademicSummary",
                     .server_name = "1065574-SQLPRD1",
                     .database_name = "PROD1",
                     .schema = "Schools") %>%
   filter(AcademicYear == "2021-2022") %>%
   collect()
+
+glimpse(df_gpa)

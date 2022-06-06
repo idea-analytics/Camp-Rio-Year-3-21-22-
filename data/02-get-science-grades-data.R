@@ -20,7 +20,7 @@
 #          StoreCode == "Y1")
 
 
-df_science_grades <- get_table(.table_name = "StudentHistoricalGrades",
+raw_science_grades <- get_table(.table_name = "StudentHistoricalGrades",
                                .server_name = "1065574-SQLPRD1",
                                .database_name = "PROD1",
                                .schema = "Schools") %>%

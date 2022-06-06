@@ -40,6 +40,6 @@
 
 # this is the raw data for ACT
 
-df_act <- readxl::read_xlsx(here::here("data", "ACT Summary Data 05.24.2022.xlsx"),
+raw_act <- readxl::read_xlsx(here::here("data", "ACT Summary Data 05.24.2022.xlsx"),
                             sheet = "Naviance Download") %>%
-  clean_names()
+  clean_names() 
