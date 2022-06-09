@@ -25,4 +25,4 @@ raw_gpa <- get_table(.table_name = "StudentAcademicSummary",
   filter(AcademicYear == "2021-2022") %>%
   collect()
 
-glimpse(df_gpa)
+glimpse(raw_gpa)

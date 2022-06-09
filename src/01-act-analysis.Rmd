@@ -36,3 +36,8 @@ df_act %>%
             mean_act_science = mean(science, na.rm = TRUE))
 ```
 
+Note: We need to get these data into their own tables:
+
+* Camp Rio survey takers (student-level)
+* All Camp Rio attendees (student-level)
+* All Camp Rio attendees (school-level)

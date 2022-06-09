@@ -20,13 +20,13 @@
 #          StoreCode == "Y1")
 
 
-raw_science_grades <- get_table(.table_name = "StudentHistoricalGrades",
-                               .server_name = "1065574-SQLPRD1",
-                               .database_name = "PROD1",
-                               .schema = "Schools") %>%
-  filter(AcademicYear == "2021-2022",
-         CreditType == "SC",
-         StoreCode == "Y1")
+# raw_science_grades <- get_table(.table_name = "StudentHistoricalGrades",
+#                                .server_name = "1065574-SQLPRD1",
+#                                .database_name = "PROD1",
+#                                .schema = "Schools") %>%
+#   filter(AcademicYear == "2021-2022",
+#          CreditType == "SC",
+#          StoreCode == "Y1")
 
 
-glimpse(df_science_grades)
+# glimpse(raw_science_grades)
