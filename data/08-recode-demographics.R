@@ -1,3 +1,15 @@
+################################################################################
+# Filename: 08-recode-demographics.R                                           #
+# Path: ./data/08-recode-demographics.R                                        #
+# Author: Aline Orr                                                            #
+# Date created: 2022-06-09                                                     #
+# Date modified: 2022-06-09                                                    #
+# Purpose: This script recodes all demographic information.                    #
+# Inputs: stdtable                                                             #
+# Outputs: Stu_demg                                                            #
+# Notes:                                                                       #
+################################################################################
+
 # Need to give students mutually exclusive, collectively exhaustive race categories
 # IF hispanic than hispanic and no other race
 # If more than one race, then code as multi-racial,

@@ -1,0 +1,43 @@
+---
+title: "ACT Analysis"
+author: "Steven Macapagal"
+date: "6/6/2022"
+output: html_document
+---
+
+## Notebook setup
+
+* Filename: 01-act-analysis.Rmd
+* Path: ./src/01-act-analysis.Rmd
+* Author: Steven Macapagal
+* Date created: 2022-06-06
+* Date modified: 2022-06-06
+* Purpose: This notebook preps and conducts analysis ACT data for Question 3.
+* Inputs: df_act
+* Outputs: 
+* Notes:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ACT data at a glance
+
+```{r}
+glimpse(df_act)
+```
+
+## ACT data summaries
+
+```{r}
+df_act %>%
+  group_by(grade_level_id) %>%
+  summarize(n = n(),
+            mean_act_science = mean(science, na.rm = TRUE))
+```
+
+Note: We need to get these data into their own tables:
+
+* Camp Rio survey takers (student-level)
+* All Camp Rio attendees (student-level)
+* All Camp Rio attendees (school-level)

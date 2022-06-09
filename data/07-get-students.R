@@ -1,11 +1,14 @@
-library(remotes)
-library(ideadata)
-#conneclibrary(ideacolors)
-library(ProjectTemplate)
-library(tidyverse)
-library(lubridate)
-library(janitor)
-library(readxl)
+################################################################################
+# Filename: 07-get-students.R                                                  #
+# Path: ./data/07-get-students.R                                               #
+# Author: Aline Orr                                                            #
+# Date created: 2022-06-09                                                     #
+# Date modified: 2022-06-09                                                    #
+# Purpose: This script pulls in all students.                                  #
+# Inputs: students table, schools table                                        #
+# Outputs: std_data, schl_data, stdtable                                       #
+# Notes:                                                                       #
+################################################################################
 
 std_data <- get_students() %>%
   filter(AcademicYear == "2021-2022", RowIsCurrent == 1) %>%
@@ -51,16 +54,16 @@ std_data <- get_students() %>%
   distinct()%>%
   ungroup()%>%
   collect()
-std_data
-glimpse(std_data)
-write.csv(std_data, "Student data.csv")
+# std_data
+# glimpse(std_data)
+# write.csv(std_data, "Student data.csv")
 
 schl_data <- get_schools() %>%
   select(SchoolNumber, SchoolShortName) %>%
   collect()
-write.csv(schl_data,"School names_2022.csv")
+# write.csv(schl_data,"School names_2022.csv")
 
-stdtable <- left_join(std_data, schl_data, by = "SchoolNumber")%>%
+stdtable <- left_join(std_data, schl_data, by = "SchoolNumber") # %>%
   # filter((SchoolShortName != "Robindale" & RISEcode == "1") &
   #       (SchoolShortName != "Mission" & RISEcode =="1") &
   #      (SchoolShortName != "San Juan CP" & GradeLevelID == "11" & RISEcode == "1"))
