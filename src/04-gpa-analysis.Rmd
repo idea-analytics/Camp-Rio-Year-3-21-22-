@@ -1,0 +1,32 @@
+---
+title: "GPA analysis"
+author: "Steven Macapagal"
+date: "6/14/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Notebook setup
+
+* Filename: 04-gpa-analysis.Rmd
+* Path: ./src/04-gpa-analysis.Rmd
+* Author: Steven Macapagal
+* Date created: 2022-06-14
+* Date modified: 2022-06-14
+* Purpose: This notebook preps and conducts analysis for GPA data for Question 3.
+* Inputs: df_gpa_all_attendees, df_gpa_survey_takers
+* Outputs: 
+* Notes:
+
+## Analysis
+
+```{r}
+raw_gpa %>%
+  group_by(GradeLevelID) %>%
+  summarize(n = n(),
+            mean_gpa = mean(CumulativeGPA, na.rm=TRUE))
+```
+
