@@ -17,6 +17,8 @@
 #                     .schema = "Schools") %>%
 #   filter(AcademicYear == "2021-2022")
 
+check_get_connection(.database_name = "PROD1",
+                     .server_name = "1065574-SQLPRD1")
 
 raw_gpa <- get_table(.table_name = "StudentAcademicSummary",
                     .server_name = "1065574-SQLPRD1",

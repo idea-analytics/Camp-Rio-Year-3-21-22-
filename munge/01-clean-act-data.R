@@ -15,7 +15,7 @@ list_act_students <- raw_act %>%
   pull(hs_student_id)
 
 
-df_act <- raw_act %>%
+clean_act <- raw_act %>%
   filter(test_type == "ACT") %>%
   
   # this step is used to convert the test_date column into a consistent
@@ -69,4 +69,13 @@ df_act <- raw_act %>%
          composite,
          science) 
 
-
+df_act_attendees <- df_all_cr_attendees %>%
+  left_join(clean_act,
+            by = c("StudentNumber" = "hs_student_id")) %>%
+  clean_names()
+  
+  
+df_act_survey_takers <- df_all_cr_survey_takers %>%
+  left_join(clean_act,
+            by = c("Student_Number" = "hs_student_id")) %>%
+  clean_names()

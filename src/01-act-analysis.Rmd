@@ -36,8 +36,27 @@ df_act %>%
             mean_act_science = mean(science, na.rm = TRUE))
 ```
 
-Note: We need to get these data into their own tables:
 
-* Camp Rio survey takers (student-level)
-* All Camp Rio attendees (student-level)
-* All Camp Rio attendees (school-level)
+```{r}
+df_act_attendees %>%
+  filter(grade %in% c(10, 11, 12)) %>%
+  group_by(student_number) %>%
+  filter(science == max(science, na.rm = TRUE)) %>%
+  ungroup() %>%
+  group_by(grade) %>%
+  summarize(n = n(),
+            mean_act_science = mean(science, na.rm = TRUE))
+```
+
+
+```{r}
+df_act_survey_takers %>%
+  filter(grade_level %in% c(10, 11, 12)) %>%
+  group_by(student_number) %>%
+  filter(science == max(science, na.rm = TRUE)) %>%
+  ungroup() %>%
+  group_by(grade_level) %>%
+  summarize(n = n(),
+            mean_act_science = mean(science, na.rm = TRUE))
+```
+
