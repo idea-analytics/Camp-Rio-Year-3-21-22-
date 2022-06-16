@@ -21,12 +21,33 @@ knitr::opts_chunk$set(echo = TRUE)
 * Outputs: 
 * Notes:
 
-## Analysis
+## Analysis of all GPAs
 
 ```{r}
 raw_gpa %>%
   group_by(GradeLevelID) %>%
   summarize(n = n(),
             mean_gpa = mean(CumulativeGPA, na.rm=TRUE))
+```
+
+## Analysis of Camp Rio attendees
+
+```{r}
+df_gpa_attendees %>%
+  group_by(Grade) %>%
+  summarize(n = n(),
+            mean_gpa = mean(CumulativeGPA, na.rm=TRUE))
+```
+
+```{r}
+df_gpa_survey_takers %>%
+  group_by(GradeLevel) %>%
+  summarize(n = n(),
+            mean_gpa = mean(CumulativeGPA, na.rm=TRUE))
+```
+
+```{r}
+df_gpa_survey_takers %>%
+  distinct(GradeLevel, GradeLevelID.x, GradeLevelID.y)
 ```
 

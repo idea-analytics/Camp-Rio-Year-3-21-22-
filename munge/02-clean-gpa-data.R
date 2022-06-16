@@ -11,7 +11,7 @@
 ################################################################################
 
 
-df_gpa_all_attendees <- df_all_cr_attendees %>%
+df_gpa_attendees <- df_all_cr_attendees %>%
   filter(Grade %in% c(9, 10, 11, 12)) %>%
   left_join(raw_gpa %>% 
               select(StudentNumber,

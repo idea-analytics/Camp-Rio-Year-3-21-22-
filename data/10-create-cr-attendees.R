@@ -8,7 +8,11 @@
 # Inputs: ./data/Camp RIO groups 21-22.xlsx                                    #
 #         Stu_demg                                                             #
 # Outputs: df_all_cr_attendees                                                 #
-# Notes:                                                                       #
+# Notes: Rise variable indicates a RISE group came to Camp Rio.                #
+#         RISEcode indicates the student is marked as RISE in the students     #
+#         table. These two might not match because a RISE student could have   #
+#         attended in a mainstream group. These will be renamed to             #
+#         RiseGroup and RiseStudent, respectively.                             #
 ################################################################################
 
 
@@ -32,7 +36,11 @@ Rise_participants <- left_join(df_all_cr_schools, Rise_stu, by = c("Campus"="Sch
 # this creates the roster of all students who attended CR ----------------------
 
 df_all_cr_attendees <- bind_rows(Participants, Rise_participants) %>%
-  select(-mergeVar)
+  select(-mergeVar) %>%
+  rename(SchoolShortName = Campus,
+         GradeLevelID = Grade,
+         RiseGroup = Rise,
+         RiseStudent = RISEcode)
 
 
 
