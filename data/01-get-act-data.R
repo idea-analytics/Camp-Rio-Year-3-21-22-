@@ -3,7 +3,7 @@
 # Path: ./data/01-get-act-data.R                                               #
 # Author: Steven Macapagal                                                     #
 # Date created: 2022-06-01                                                     #
-# Date modified: 2022-06-02                                                    #
+# Date modified: 2022-06-20                                                    #
 # Purpose: This script pulls in ACT data.                                      #
 # Inputs:                                                                      #
 # Outputs:                                                                     #
@@ -40,6 +40,11 @@
 
 # this is the raw data for ACT
 
-raw_act <- readxl::read_xlsx(here::here("data", "ACT Summary Data 05.24.2022.xlsx"),
-                            sheet = "Naviance Download") %>%
-  clean_names() 
+# raw_act <- readxl::read_xlsx(here::here("data", "ACT Summary Data 05.24.2022.xlsx"),
+#                             sheet = "Naviance Download") %>%
+#   clean_names("upper_camel") 
+
+
+raw_act <- read_csv(here::here("data", "actscores.csv"),
+                    col_types = cols(test_date = col_character())) %>%
+  clean_names("upper_camel")
