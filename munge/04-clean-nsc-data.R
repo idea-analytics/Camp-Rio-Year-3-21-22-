@@ -80,21 +80,21 @@ df_nsc <- raw_nsc %>%
 # df_nsc %>%
 #   distinct(SchoolName)
 
-### counted 92 students who withdrew from their first college
+### counted 92 students who withdrew from their first college (6.6 %)
 
 # df_nsc %>%
 #   group_by(StudentNumber) %>%
 #   filter(EnrollmentStatus == "W",
 #          CollegeSequence == 1)
 
-### counted 948 students who enrolled full time in 2021
+### counted 948 students who enrolled full time in 2021 (67.7 %)
 
 # df_nsc %>%
 #   filter(EnrollmentStatus == "F",
 #          CollegeSequence == 1,
 #          year(EnrollmentBegin) == 2021)
 
-### counted 1252 students who enrolled at least half time in 2021
+### counted 1252 students who enrolled at least half time in 2021 (89.4 %)
 
 # df_nsc %>%
 #   filter(EnrollmentStatus %in% c("F", "Q", "H"),
@@ -102,7 +102,7 @@ df_nsc <- raw_nsc %>%
 #          year(EnrollmentBegin) == 2021)
 
 
-### counted 1348 students who enrolled in 2021
+### counted 1348 students who enrolled in 2021 (96.2 %)
 
 # df_nsc %>%
 #   filter(!(EnrollmentStatus %in% c("A", "W", "D")),
