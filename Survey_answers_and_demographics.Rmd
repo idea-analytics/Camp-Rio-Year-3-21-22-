@@ -1,0 +1,157 @@
+---
+
+0title: "Academy survey analysis"
+author: "AO"
+date: "6/14/2022"
+output: html_document
+---
+
+Bring in Academy survey data and clean variable names
+```{r}
+library(car)
+
+ac_survey_clean <- xlsx_survey_ac %>%
+  #filter(!is.na(StudentNumber))%>%
+  remove_empty("rows") %>%
+  rename(StartTime = "Start time",
+         CompletionTime = "Completion time",
+         StudentNumber = "Please enter your Student ID number.",
+         SchoolName = "Which campus do you attend?",
+         GradeLevel = "Which grade are you currently in?",
+         CRDose = "Before today, how many times have you visited Camp RIO?",
+         CNI_1 = "I feel sad when wild animals are hurt.",
+         CNI_2 = "I like to see wild animals living in a clean environment.",
+         CNI_3 = "Taking care of animals is important to me.",
+         CNI_4 = "I like to see wildflowers in nature.",
+         CNI_5 = "Being outdoors makes me happy.",
+         CNI_6 = "I enjoy touching animals and plants.",
+         CNI_7 = "I enjoy touching animals and plants.",
+         CNI_8 = "Collecting rocks and shells is fun.",
+         CNI_9 = "I like to hear different sounds in nature.",
+         CNI_10 = "Being in the natural environment makes me feel peaceful.",
+         CNI_11 = "When I feel sad, I like to go outside and enjoy nature",
+         CNI_12 = "Humans are part of the natural world.",
+         CNI_13 = "People cannot live without plants and animals.",
+         CNI_14 = "My actions will make the natural world different.",
+         CNI_15 = "People do not have the right to change the natural environment.2",
+         CNI_16 = "Picking up trash on the ground can help the environment.2",
+         SLSS_1 = "My life is going well.",
+         SLSS_2 = "My life is just right.",
+         SLSS_3b= "I would like to change many things in my life.",
+         SLSS_4b= "I wish I had a different kind of life.",
+         SLSS_5 = "I have a good life.",
+         SLSS_6 = "I have what I want in life.",
+         SLSS_7 = "My life is better than most kids.",
+         CR_1 = "Please share the most significant lesson or experience you took from this outdoor education experience",
+         CR_2 = "Based on what you learned in this Camp RIO experience, what is your level of interest in land stewardship? (Land stewardship means caring for our land, water and wildlife)",
+         CR_3 = "How excited are you about going to Camp RIO?2",
+         CR_4 = "How focused are you on the activities at Camp RIO?",
+         CR_5 = "In Camp RIO activities, how eager are you to participate?",
+         CR_6 = "When you are not at Camp RIO, how often do you talk about ideas from Camp RIO?",
+         CR_7 = "Overall, how interested are you in what you are learning at Camp RIO?",
+         CR_8 = "How often do you try to practice land stewardship? (Land stewardship means caring for our land, water and wildlife)",
+         TimeInNature = "In the past week, including Saturday and Sunday, how many hours did you spend outdoors in nature (in a park, a forest, a backyard or playground with trees, or similar place)?",
+         StudentName = "Please enter your first and last name.") %>%  
+  mutate(SLSS_3 = recode(SLSS_3b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
+         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'))%>%
+
+  select(-SLSS_3b, -SLSS_4b)
+  
+# select(StartTime, CompletionTime, StudentNumber, SchoolName, GradeLevel, CRDose, CNI_1, CNI_2, CNI_3, CNI_4, CNI_5, CNI_6, CNI_7, CNI_8, CNI_9, CNI_10, CNI_11, CNI_12, CNI_13, CNI_14, CNI_15, CNI_16, SLSS_1, SLSS_2, SLSS_3, SLSS_4, SLSS_5, SLSS_6, CR_1, CR_2, CR_3, CR_4, CR_5, CR_6, CR_7, CR_8, TimeInNature, StudentName)
+ 
+
+
+```
+
+Create student level CNI and SLSS composite scores (i.e., average across all CNI or SLSS scores grouped by student)
+```{r}
+ac_survey_composites <- ac_survey_clean%>%
+  rowwise()%>%
+  mutate(CNI_Std_Mean = mean(c_across(starts_with("CNI")), na.rm = T),
+        SLSS_Std_Mean = mean(c_across(starts_with("SLSS")), na.rm = T)) %>%
+  ungroup()
+
+
+##ac_survey_composites <- ac_survey_clean %>%
+##  mutate(CNI_Std_Mean = across(starts_with("CNI"), mean, na.rm = TRUE))
+  
+ # mutate(CNI_Std_Mean = mean(across(starts_with("CNI")), na.rm = T),
+  #       SLSS_Std_Mean = mean(starts_with("SLSS")), na.rm = T)
+  
+ # rowwise() %>%
+  #    mutate(SLSS_Sum = sum(across(starts_with("SLSS")), na.rm = T),
+   #    CNI_Std_Mean = CNI_Sum/16,
+    #   SLSS_Std_Mean = SLSS_Sum/7)
+
+#summary(ac_survey_composites)
+
+```
+
+Create overall mean CNI, SLSS
+```{r}
+#mutate will keep all collumns, summarize will create a new df with only the new summary columns
+ac_survey_mean <- ac_survey_composites %>%
+  summarize(CNI_Mean = mean(CNI_Std_Mean),
+         SLSS_Mean = mean(SLSS_Std_Mean))
+
+```
+
+Create CNI and SLSS mean by grade level
+```{r}
+ac_survey_grdlvl_mean <- ac_survey_composites %>%
+  group_by(GradeLevel) %>%
+  summarize(CNI_Mean = mean(CNI_Std_Mean),
+         SLSS_Mean = mean(SLSS_Std_Mean))
+```
+
+Create CNI and SLSS mean by dose level
+```{r}
+ac_survey_dose_mean <- ac_survey_clean %>%
+  group_by(CRDose) %>%
+  summarize(CNI_Mean = mean(CNI_Std_Mean),
+         SLSS_Mean = mean(SLSS_Std_Mean))
+
+```
+
+Bring in CP survey data and clean variable names
+```{r}
+CP_survey_clean <- xlsx_survey_cp %>%
+  remove_empty("rows") %>%
+  rename(StartTime = "Start time",
+         CompletionTime = "Completion time",
+         #Email,
+         StudentNumber = "Please enter your Student ID number.",
+         SchoolName = "Which campus do you attend?",
+         GradeLevel = "Which grade are you currently in?",
+         CRDose = "Before today, how many times have you visited Camp RIO?",
+         NR6_1 = "My ideal vacation spot would be a remote, wilderness area.",
+         NR6_2 = "I always think about how my actions affect the environment.",
+         NR6_3 = "My connection to nature and the environment is a part of my spirituality.",
+         NR6_4 = "I take notice of wildlife wherever I am.",
+         NR6_5 = "My relationship to nature is an important part of who I am.",
+         NR6_6 = "I feel very connected to all living things and the earth.",
+         SLSS_1 = "My life is going well.",
+         SLSS_2 = "My life is just right.",
+         SLSS_3b = "I would like to change many things in my life.",
+         SLSS_4b = "I wish I had a different kind of life.",
+         SLSS_5 = "I have a good life.",
+         SLSS_6 = "I have what I want in life.",
+         SLSS_7 = "My life is better than most kids.",
+         CR_1 = "Please share the most significant lesson or experience you took from this outdoor education experience",
+         CR_2 = "Based on what you learned in this Camp RIO experience, what is your level of interest in land stewardship?",
+         CR_3 = "What are some of the land stewardship behaviors your currently practice?",
+         CR_4 = "How confident are you that you can learn all the material presented in your Science class?",
+         CR_5 = "How confident are you that you can do the hardest work that is assigned in your Science class?",
+         CR_6 = "How confident are you that you will remember what you learned in your current Science class, next year?",
+         CR_7 = "How confident are you that you can complete all the work that is assigned in your Science class?",
+         TimeInNature = "In the past week, including Saturday and Sunday, about how many hours per day did you spend outdoors in nature (in a park, a forest, a backyard or playground with trees, or a similar place)?",
+         FirstName = "Please enter your name.",
+         LastName = "Please enter your name.2") %>%
+  
+  mutate(SLSS_3 = recode(SLSS_3b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
+         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'))%>%
+  select(-SLSS_3b, -SLSS_4b)
+
+
+```
+
