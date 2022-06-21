@@ -15,13 +15,14 @@
 
 # read in academy surveys and create academy df --------------------------------
 
-CRA_2022b <- readxl::read_xlsx(here::here("data", "Camp RIO Survey_Academy_21-22.xlsx")) %>%
+CRA_2022b <- xlsx_survey_ac %>%
   select(CompletionTime = 'Completion time',
          Name,
          Student_Number = 'Please enter your Student ID number.',
          SchoolName = 'Which campus do you attend?',
          GradeLevel = 'Which grade are you currently in?',
          FullName = 'Please enter your first and last name.',
+         CRDose = 'Before today, how many times have you visited Camp RIO?'
   ) %>%
   mutate(Student_Number = as.numeric(Student_Number),
          CompletionTime = as.character(CompletionTime),
@@ -56,13 +57,14 @@ list_mismatched_ac <- CRA_AllStudents %>%
 
 # read in college prep surveys and create college prep df ----------------------
 
-CRCP_2022b <- readxl::read_xlsx(here::here("data", "Camp RIO Survey_CollegePrep_21-22.xlsx")) %>%
+CRCP_2022b <- xlsx_survey_cp %>%
   select(CompletionTime = 'Completion time',
          Name,
          Student_Number = 'Please enter your Student ID number.',
          SchoolName = 'Which campus do you attend?',
          GradeLevel = 'Which grade are you currently in?',
-         FullName = 'Please enter your name.'
+         FullName = 'Please enter your name.',
+         CRDose = 'Before today, how many times have you visited Camp RIO?'
   )%>%
   mutate(Student_Number = as.numeric(Student_Number),
          CompletionTime = as.character(CompletionTime),
@@ -103,6 +105,14 @@ df_all_cr_survey_takers <- CRA_AllStudents %>%
               mutate(SchoolType = "College Prep")) %>%
   filter(if_else(SchoolType == "Academy",
                  !(row_number %in% list_mismatched_ac),
-                 !(row_number %in% list_mismatched_cp)))
-
+                 !(row_number %in% list_mismatched_cp))) %>%
+  select(-Name,
+         -row_number) %>%
+  rename(StudentNumber = Student_Number,
+         SchoolShortNameReported = SchoolName,
+         GradeLevelIDReported = GradeLevel,
+         FirstName = First_Name,
+         LastName = Last_Name,
+         MiddleInitial = Middle_Initial,
+         RiseStudent = RISEcode)
 

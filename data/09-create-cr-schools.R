@@ -22,4 +22,7 @@ df_all_cr_schools <- readxl::read_xlsx(here::here("data", "Camp RIO groups 21-22
   mutate(mergeVar = if_else(Rise == 1, 99, 0),
          Grade = as.integer(Grade))%>%
   select(-Date)%>%
-  distinct()
+  distinct() %>%
+  rename(SchoolShortName = Campus,
+         GradeLevelID = Grade)
+  
