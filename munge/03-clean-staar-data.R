@@ -1,7 +1,7 @@
 ################################################################################
 # Filename: 03-clean-staar-data.R                                              #
 # Path: munge/03-clean-staar-data.R                                            #
-# Author: Mishan Jensen                                                        #
+# Author: Mishan Jensen, Steven Macapagal                                      #
 # Date created: 2022-06-20                                                     #
 # Date modified: 2022-06-22                                                    #
 # Purpose: This script deduplicates STAAR science scores.                      #
@@ -19,7 +19,8 @@ count_students <- raw_staar %>%
 df_staar_science <- raw_staar %>%
   group_by(StudentNumber,
            SubjectCode) %>%
-  mutate(Best_score = max(ScaleScore),
+  mutate(GradeLevelID = as.numeric(GradeLevelID),
+         Best_score = max(ScaleScore),
          BestScoreFlag = if_else(Best_score == ScaleScore, 1, 0),
          Approaches = as.numeric(Approaches),
          Meets = as.numeric(Meets),
@@ -29,21 +30,17 @@ df_staar_science <- raw_staar %>%
          -Best_score,
          -AdminDate,
          -ScaleScore) %>%
+  relocate(StudentNumber) %>%
   distinct()
 
-# Calculating the % Approaches and the % Masters
-table_staar_science_dist <- df_staar_science %>%
-  select(SubjectCode,
-         GradeLevelID,
-         Approaches,
-         Meets,
-         Masters) %>%
-  group_by(SubjectCode,
-           GradeLevelID) %>%
-  summarize(nStudents = n(),
-            nApproaches = sum(Approaches),
-            nMeets = sum(Meets),
-            nMasters = sum(Masters)) %>%
-  mutate(PercentApproaches = nApproaches/nStudents,
-         PercentMeets = nMeets/nStudents,
-         PercentMasters = nMasters/nStudents)
+
+# join with students tables ----------------------------------------------------
+
+df_staar_science_attendees <- df_all_cr_attendees %>%
+  left_join(df_staar_science,
+            by = c("StudentNumber" = "StudentNumber"))
+
+df_staar_science_survey_takers <- df_all_cr_survey_takers %>%
+  left_join(df_staar_science,
+            by = c("StudentNumber" = "StudentNumber"))
+

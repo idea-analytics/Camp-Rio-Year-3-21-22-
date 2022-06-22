@@ -3,7 +3,7 @@
 # Path: munge/04-clean-nsc-data.R                                              #
 # Author: Steven Macapagal                                                     #
 # Date created: 2022-06-20                                                     #
-# Date modified: 2022-06-20                                                    #
+# Date modified: 2022-06-22                                                    #
 # Purpose: This script cleans NSC data.                                        #
 # Inputs:  raw_nsc, get_students()                                             #
 # Outputs: df_nsc                                                              #
@@ -48,9 +48,14 @@ df_nsc <- raw_nsc %>%
                      StudentFullName) %>%
               collect(),
             by = c("StudentNumber" = "StudentNumber")) %>%
+  left_join(xlsx_survey_cp_20_21 %>%
+              select(StudentNumber,
+                     Surveyed),
+            by = c("StudentNumber" = "StudentNumber")) %>%
   mutate(SchoolName = if_else(SchoolName == "IDEA College Preparatory",
                               "IDEA Donna College Preparatory",
-                              SchoolName)) %>%
+                              SchoolName),
+         Surveyed = replace_na(Surveyed, 0)) %>%
   relocate(Region,
            SchoolName,
            StudentNumber,
@@ -80,31 +85,3 @@ df_nsc <- raw_nsc %>%
 # df_nsc %>%
 #   distinct(SchoolName)
 
-### counted 92 students who withdrew from their first college (6.6 %)
-
-# df_nsc %>%
-#   group_by(StudentNumber) %>%
-#   filter(EnrollmentStatus == "W",
-#          CollegeSequence == 1)
-
-### counted 948 students who enrolled full time in 2021 (67.7 %)
-
-# df_nsc %>%
-#   filter(EnrollmentStatus == "F",
-#          CollegeSequence == 1,
-#          year(EnrollmentBegin) == 2021)
-
-### counted 1252 students who enrolled at least half time in 2021 (89.4 %)
-
-# df_nsc %>%
-#   filter(EnrollmentStatus %in% c("F", "Q", "H"),
-#          CollegeSequence == 1,
-#          year(EnrollmentBegin) == 2021)
-
-
-### counted 1348 students who enrolled in 2021 (96.2 %)
-
-# df_nsc %>%
-#   filter(!(EnrollmentStatus %in% c("A", "W", "D")),
-#          CollegeSequence == 1,
-#          year(EnrollmentBegin) == 2021)

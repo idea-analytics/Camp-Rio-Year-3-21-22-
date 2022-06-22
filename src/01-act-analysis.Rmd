@@ -31,32 +31,45 @@ glimpse(df_act)
 
 ```{r}
 df_act %>%
-  group_by(grade_level_id) %>%
+  group_by(GradeLevelID) %>%
   summarize(n = n(),
-            mean_act_science = mean(science, na.rm = TRUE))
+            MeanScience = mean(Science, na.rm = TRUE))
 ```
 
 
 ```{r}
 df_act_attendees %>%
-  filter(grade %in% c(10, 11, 12)) %>%
-  group_by(student_number) %>%
-  filter(science == max(science, na.rm = TRUE)) %>%
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(Science == max(Science, na.rm = TRUE)) %>%
   ungroup() %>%
-  group_by(grade) %>%
+  group_by(GradeLevelID) %>%
   summarize(n = n(),
-            mean_act_science = mean(science, na.rm = TRUE))
+            MeanScience = mean(Science, na.rm = TRUE))
 ```
 
 
 ```{r}
 df_act_survey_takers %>%
-  filter(grade_level %in% c(10, 11, 12)) %>%
-  group_by(student_number) %>%
-  filter(science == max(science, na.rm = TRUE)) %>%
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(Science == max(Science, na.rm = TRUE)) %>%
   ungroup() %>%
-  group_by(grade_level) %>%
+  group_by(GradeLevelID) %>%
   summarize(n = n(),
-            mean_act_science = mean(science, na.rm = TRUE))
+            MeanScience = mean(Science, na.rm = TRUE))
+```
+
+
+```{r}
+df_act_survey_takers %>%
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(Science == max(Science, na.rm = TRUE)) %>%
+  ungroup() %>%
+  group_by(GradeLevelID,
+           CRDoseGroup) %>%
+  summarize(n = n(),
+            MeanScience = mean(Science, na.rm = TRUE))
 ```
 

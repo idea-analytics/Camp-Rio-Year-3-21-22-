@@ -19,7 +19,7 @@ raw_staar <- get_table(.table_name = "STAAR",
   filter(TestVersion == "S",
          ScoreCode == "S",
          SubjectCode %in% c("Science", "Biology"),
-         AdminDate %in% c("0422", "0522")) %>%
+         SchoolYear == "2021-2022") %>%
   select(StudentID,
          LocalStudentID,
          GradeLevelID = GradeLevel,
