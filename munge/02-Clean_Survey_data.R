@@ -1,4 +1,5 @@
 ac_survey_clean <- xlsx_survey_ac %>%
+ 
   remove_empty("rows") %>%
   rename(StartTime = "Start time",
          CompletionTime = "Completion time",
@@ -11,7 +12,7 @@ ac_survey_clean <- xlsx_survey_ac %>%
          CNI_3 = "Taking care of animals is important to me.",
          CNI_4 = "I like to see wildflowers in nature.",
          CNI_5 = "Being outdoors makes me happy.",
-         CNI_6 = "I enjoy touching animals and plants.",
+         CNI_6 = "I like to garden.",
          CNI_7 = "I enjoy touching animals and plants.",
          CNI_8 = "Collecting rocks and shells is fun.",
          CNI_9 = "I like to hear different sounds in nature.",
@@ -39,11 +40,11 @@ ac_survey_clean <- xlsx_survey_ac %>%
          CR_8 = "How often do you try to practice land stewardship? (Land stewardship means caring for our land, water and wildlife)",
          TimeInNature = "In the past week, including Saturday and Sunday, how many hours did you spend outdoors in nature (in a park, a forest, a backyard or playground with trees, or similar place)?",
          StudentName = "Please enter your first and last name.") %>%  
-  
   mutate(SLSS_3 = recode(SLSS_3b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
-         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'))%>%
-  
-  select(-SLSS_3b, -SLSS_4b)
+         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'))  %>%
+  select(StartTime, CompletionTime, StudentNumber, SchoolName, GradeLevel, CRDose, CNI_1, CNI_2, CNI_3, CNI_4, CNI_5, CNI_6, CNI_7, CNI_8, CNI_9, CNI_10, CNI_11, CNI_12, CNI_13, CNI_14, CNI_15, CNI_16, SLSS_1, SLSS_2, SLSS_3, SLSS_4, SLSS_5, SLSS_6, CR_1, CR_2, CR_3, CR_4, CR_5, CR_6, CR_7, CR_8, TimeInNature, StudentName)
+
+
 
 CP_survey_clean <- xlsx_survey_cp %>%
   remove_empty("rows") %>%
@@ -70,14 +71,18 @@ CP_survey_clean <- xlsx_survey_cp %>%
          CR_1 = "Please share the most significant lesson or experience you took from this outdoor education experience",
          CR_2 = "Based on what you learned in this Camp RIO experience, what is your level of interest in land stewardship?",
          CR_3 = "What are some of the land stewardship behaviors your currently practice?",
-         CR_4 = "How confident are you that you can learn all the material presented in your Science class?",
-         CR_5 = "How confident are you that you can do the hardest work that is assigned in your Science class?",
-         CR_6 = "How confident are you that you will remember what you learned in your current Science class, next year?",
-         CR_7 = "How confident are you that you can complete all the work that is assigned in your Science class?",
+         CR_4 = "How often do you try to practice land stewardship?",
+         CR_5 = "How many Science courses are you currently taking?",
+         Cr_6 = "How confident are you that you can complete all the work that is assigned in your Science class or classes?",
+         CR_7 = "When complicated ideas are presented in your Science class, how confident are you that you can understand them?",
+         CR_8 = "How confident are you that you can learn all the material presented in your Science class?",
+         CR_9 = "How confident are you that you can do the hardest work that is assigned in your Science class?",
+         CR_10 = "How confident are you that you will remember what you learned in your current Science class, next year?",
+         CR_11 = "How confident are you that you can complete all the work that is assigned in your Science class?",
          TimeInNature = "In the past week, including Saturday and Sunday, about how many hours per day did you spend outdoors in nature (in a park, a forest, a backyard or playground with trees, or a similar place)?",
          FirstName = "Please enter your name.",
          LastName = "Please enter your name.2") %>%
   
   mutate(SLSS_3 = recode(SLSS_3b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
          SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'))%>%
-  select(-SLSS_3b, -SLSS_4b)
+  select(StartTime,CompletionTime,StudentNumber,SchoolName,GradeLevel,CRDose,NR6_1,NR6_2,NR6_3,NR6_4,NR6_5,NR6_6,SLSS_1,SLSS_2,SLSS_3,SLSS_4,SLSS_5,SLSS_6,SLSS_7,CR_1,CR_2,CR_3,CR_4,CR_5,)
