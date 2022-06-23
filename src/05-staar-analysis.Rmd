@@ -1,0 +1,91 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Distributions of STAAR scores
+
+This computes the distribution of all science STAAR scores.
+
+```{r}
+df_staar_science %>%
+  select(SubjectCode,
+         GradeLevelID,
+         Approaches,
+         Meets,
+         Masters) %>%
+  group_by(SubjectCode,
+           GradeLevelID) %>%
+  summarize(nStudents = n(),
+            nApproaches = sum(Approaches),
+            nMeets = sum(Meets),
+            nMasters = sum(Masters)) %>%
+  mutate(PercentApproaches = nApproaches/nStudents,
+         PercentMeets = nMeets/nStudents,
+         PercentMasters = nMasters/nStudents)
+```
+
+
+This computes the distribution of all STAAR science scores among Camp Rio attendees.
+
+```{r}
+df_staar_science_attendees %>%
+  select(SubjectCode,
+         GradeLevelID.x,
+         Approaches,
+         Meets,
+         Masters) %>%
+  group_by(SubjectCode,
+           GradeLevelID.x) %>%
+  summarize(nStudents = n(),
+            nApproaches = sum(Approaches),
+            nMeets = sum(Meets),
+            nMasters = sum(Masters)) %>%
+  mutate(PercentApproaches = nApproaches/nStudents,
+         PercentMeets = nMeets/nStudents,
+         PercentMasters = nMasters/nStudents)
+```
+
+
+This computes the distribution of all STAAR science scores among survey takers.
+
+```{r}
+df_staar_science_survey_takers %>%
+  select(SubjectCode,
+         GradeLevelID.x,
+         Approaches,
+         Meets,
+         Masters) %>%
+  group_by(SubjectCode,
+           GradeLevelID.x) %>%
+  summarize(nStudents = n(),
+            nApproaches = sum(Approaches),
+            nMeets = sum(Meets),
+            nMasters = sum(Masters)) %>%
+  mutate(PercentApproaches = nApproaches/nStudents,
+         PercentMeets = nMeets/nStudents,
+         PercentMasters = nMasters/nStudents)
+```
+
+And now, by dosage:
+
+```{r}
+df_staar_science_survey_takers %>%
+  select(SubjectCode,
+         GradeLevelID.x,
+         CRDoseGroup,
+         Approaches,
+         Meets,
+         Masters) %>%
+  group_by(SubjectCode,
+           GradeLevelID.x,
+           CRDoseGroup) %>%
+  summarize(nStudents = n(),
+            nApproaches = sum(Approaches),
+            nMeets = sum(Meets),
+            nMasters = sum(Masters)) %>%
+  mutate(PercentApproaches = nApproaches/nStudents,
+         PercentMeets = nMeets/nStudents,
+         PercentMasters = nMasters/nStudents)
+```
+

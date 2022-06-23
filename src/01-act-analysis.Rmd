@@ -31,32 +31,78 @@ glimpse(df_act)
 
 ```{r}
 df_act %>%
-  group_by(grade_level_id) %>%
+  group_by(GradeLevelTaken) %>%
   summarize(n = n(),
-            mean_act_science = mean(science, na.rm = TRUE))
+            MeanScience = mean(Science, na.rm = TRUE))
 ```
 
 
 ```{r}
 df_act_attendees %>%
-  filter(grade %in% c(10, 11, 12)) %>%
-  group_by(student_number) %>%
-  filter(science == max(science, na.rm = TRUE)) %>%
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE)) %>%
   ungroup() %>%
-  group_by(grade) %>%
+  group_by(GradeLevelID) %>%
   summarize(n = n(),
-            mean_act_science = mean(science, na.rm = TRUE))
+            MeanScience = mean(Science, na.rm = TRUE))
 ```
 
 
 ```{r}
 df_act_survey_takers %>%
-  filter(grade_level %in% c(10, 11, 12)) %>%
-  group_by(student_number) %>%
-  filter(science == max(science, na.rm = TRUE)) %>%
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE)) %>%
   ungroup() %>%
-  group_by(grade_level) %>%
+  group_by(GradeLevelID) %>%
   summarize(n = n(),
-            mean_act_science = mean(science, na.rm = TRUE))
+            MeanScience = mean(Science, na.rm = TRUE))
+```
+
+
+```{r}
+dist_act_survey_takers <- df_act_survey_takers %>%
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE)) %>%
+  ungroup() %>%
+  group_by(GradeLevelID,
+           CRDoseGroup) %>%
+  summarize(n = n(),
+            MeanScience = mean(Science, na.rm = TRUE))
+```
+
+Next, test for normality. It appears from the histogram and the Shapiro-Wilk tests that the populations seem relatively normal.
+
+* p-value for 0-2 visits = 0.3553
+* p-value for 2+ visits = 0.4434
+
+```{r normality_checks}
+
+df_act_survey_takers %>%  
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE)) %>%
+  ungroup() %>%
+  ggplot() +
+  geom_histogram(aes(x = Science)) +
+  facet_wrap(~ CRDoseGroup)
+
+
+df_act_survey_takers %>%  
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE),
+         CRDoseGroup == "0-2 Visits") %>%
+  ungroup() %>%
+  pull(Science) %>%
+  shapiro.test()
+
 ```
 
