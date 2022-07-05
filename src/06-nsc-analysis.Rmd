@@ -9,7 +9,7 @@ output: html_notebook
 * Path: src/06-nsc-analysis.Rmd
 * Author: Steven Macapagal
 * Date created: 2022-06-22
-* Date modified: 2022-06-22
+* Date modified: 2022-07-05
 * Purpose: This notebook preps and conducts analysis for NSC data for Question 3.
 * Inputs: df_nsc
 * Outputs: 
@@ -68,4 +68,39 @@ df_nsc %>%
   count(EnrollmentStatus)
 ```
 
+Distribution of each student's first enrollment month:
 
+* May = 4
+* June = 1
+* August = 1227
+* September = 75
+* October = 1
+* December = 1
+* January = 5
+
+```{r}
+df_nsc %>%
+  ungroup() %>%
+  filter(Order == 1) %>%
+  mutate(month = month(EnrollmentBegin)) %>%
+  count(month)
+```
+
+Distribution of first enrollments
+
+* F = 898
+* Q = 189
+* H = 80
+* L = 46
+* W = 57
+* A = 1
+* NA = 129
+
+Note that some of these students enrolled in the summer, so their first-time enrollment may not be full-time.
+
+```{r}
+df_nsc %>%
+  ungroup() %>%
+  filter(CollegeSequence == 1) %>%
+  count(EnrollmentStatus)
+```
