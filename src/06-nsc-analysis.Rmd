@@ -1,0 +1,106 @@
+---
+title: "NSC analysis"
+output: html_notebook
+---
+
+## Notebook setup
+
+* Filename: 06-nsc-analysis.Rmd
+* Path: src/06-nsc-analysis.Rmd
+* Author: Steven Macapagal
+* Date created: 2022-06-22
+* Date modified: 2022-07-05
+* Purpose: This notebook preps and conducts analysis for NSC data for Question 3.
+* Inputs: df_nsc
+* Outputs: 
+* Notes:
+
+# Survey analysis
+
+counted 77 students who were surveyed in 2020-2021 (5.8 %)
+```{r}
+df_nsc %>%
+  group_by(StudentNumber) %>%
+  mutate(row_number = row_number()) %>%
+  filter(row_number == max(row_number, na.rm = TRUE)) %>%
+  ungroup() %>%
+  count(Surveyed)
+```
+
+distribution of enrollment statuses:
+
+* F = 852
+* Q = 194
+* H = 87
+* L = 61
+* W = 73
+* A = 2
+* NA = 131
+```{r}
+df_nsc %>%
+  group_by(StudentNumber) %>%
+  mutate(row_number = row_number()) %>%
+  filter(row_number == max(row_number, na.rm = TRUE)) %>%
+  ungroup() %>%
+  count(EnrollmentStatus)
+```
+
+
+distribution of enrollment among survey takers:
+
+* F = 51
+* Q = 11
+* H = 2
+* L = 1
+* W = 3
+* NA = 9
+
+if we assume all NAs are W, then 84.4 % of those surveyed had an active enrollment as their last record
+
+if we assume all NAs are at least L, then 96.2 % of those surveyed had an active enrollment as their last record
+```{r}
+df_nsc %>%
+  group_by(StudentNumber) %>%
+  mutate(row_number = row_number()) %>%
+  filter(row_number == max(row_number, na.rm = TRUE),
+         Surveyed == 1) %>%
+  ungroup() %>%
+  count(EnrollmentStatus)
+```
+
+Distribution of each student's first enrollment month:
+
+* May = 4
+* June = 1
+* August = 1227
+* September = 75
+* October = 1
+* December = 1
+* January = 5
+
+```{r}
+df_nsc %>%
+  ungroup() %>%
+  filter(Order == 1) %>%
+  mutate(month = month(EnrollmentBegin)) %>%
+  count(month)
+```
+
+Distribution of first enrollments
+
+* F = 898
+* Q = 189
+* H = 80
+* L = 46
+* W = 57
+* A = 1
+* NA = 129
+
+Note that some of these students enrolled in the summer, so their first-time enrollment may not be full-time.
+
+```{r}
+df_nsc %>%
+  ungroup() %>%
+  filter(CollegeSequence == 1) %>%
+  count(EnrollmentStatus)
+```

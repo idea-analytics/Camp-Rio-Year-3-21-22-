@@ -3,7 +3,7 @@
 # Path: ./data/11-create-cr-survey-takers.R                                    #
 # Author: Aline Orr                                                            #
 # Date created: 2022-06-09                                                     #
-# Date modified: 2022-06-09                                                    #
+# Date modified: 2022-06-22                                                    #
 # Purpose: This script creates the main student and school data frames         #
 #           for Camp Rio.                                                      #
 # Inputs: ./data/Camp RIO groups 21-22.xlsx                                    #
@@ -106,6 +106,9 @@ df_all_cr_survey_takers <- CRA_AllStudents %>%
   filter(if_else(SchoolType == "Academy",
                  !(row_number %in% list_mismatched_ac),
                  !(row_number %in% list_mismatched_cp))) %>%
+  mutate(CRDoseGroup = fct_collapse(factor(CRDose),
+                                    `0-2 Visits` = c("0", "1", "2"),
+                                    `More Than 2 Visits` = c("3", "4", "5", "6", "7"))) %>%
   select(-Name,
          -row_number) %>%
   rename(StudentNumber = Student_Number,

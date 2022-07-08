@@ -13,8 +13,8 @@
 
 
 # raw_science_grades <- get_table(.table_name = "StudentHistoricalGrades",
-#                                # .server_name = "1065574-SQLPRD1",
-#                                .server_name = "RGVPDSD-DWPRD1",
+#                                .server_name = "1065574-SQLPRD1",
+#                                # .server_name = "RGVPDSD-DWPRD1",
 #                                .database_name = "PROD1",
 #                                .schema = "Schools") %>%
 #   filter(AcademicYear == "2021-2022",
@@ -22,4 +22,15 @@
 #          StoreCode == "Y1")
 # 
 # 
+# glimpse(raw_science_grades)
+
+
+raw_science_grades <- get_table(.table_name = "StudentCurrentGrades",
+                                .server_name = "RGVPDSD-DWPRD1",
+                                .database_name = "PROD1",
+                                .schema = "Schools") %>%
+  filter(SchoolTermID == "3100",
+         CreditType == "SC",
+         StoreCode == "Y1")
+
 # glimpse(raw_science_grades)

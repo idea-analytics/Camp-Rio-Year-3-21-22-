@@ -1,0 +1,21 @@
+---
+title: "Camp Rio Research and Evaluation"
+subtitle: "Year 3 Report"
+author: "Aline Orr, Steven Macapagal"
+date: "6/21/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+```{r sample_code_chunk}
+n_seniors <- 1700
+```
+
+There were `r n_seniors` seniors that attended IDEA in the 21-22 school year. 
+
+**To check the result, click on "Knit".**
