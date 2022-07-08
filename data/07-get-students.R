@@ -11,7 +11,7 @@
 ################################################################################
 
 std_data <- get_students() %>%
-  filter(AcademicYear == "2021-2022", RowIsCurrent == 1) %>%
+  filter(AcademicYear == "2021-2022") %>%
   select(StudentNumber,
          FirstName,
          MiddleInitial,
@@ -48,12 +48,15 @@ std_data <- get_students() %>%
          Black = as.numeric(Black),
          Asian = as.numeric(Asian)) %>%
   #use this when you can not use rowiscurrent to keep only one grade level, this can also be used as max school number to keep only one school. Again, make sure to group by student first.
-  group_by(StudentNumber)%>%
-  mutate(GradeLevelID = max(GradeLevelID))%>% 
-  select(-P_Islander, -Am_Indian)%>%
-  distinct()%>%
-  ungroup()%>%
-  collect()
+
+  select(-P_Islander, -Am_Indian) %>%
+  distinct() %>%
+  collect() %>% 
+  group_by(StudentNumber) %>%
+  filter(GradeLevelID == max(GradeLevelID),
+         ExitDate == max(ExitDate)) %>% 
+  ungroup() %>%
+  distinct()
 # std_data
 # glimpse(std_data)
 # write.csv(std_data, "Student data.csv")
