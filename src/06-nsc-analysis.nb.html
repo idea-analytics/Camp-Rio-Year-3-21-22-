@@ -222,7 +222,7 @@ pre code {
 <li>Path: src/06-nsc-analysis.Rmd</li>
 <li>Author: Steven Macapagal</li>
 <li>Date created: 2022-06-22</li>
-<li>Date modified: 2022-06-22</li>
+<li>Date modified: 2022-07-05</li>
 <li>Purpose: This notebook preps and conducts analysis for NSC data for Question 3.</li>
 <li>Inputs: df_nsc</li>
 <li>Outputs:</li>
@@ -234,66 +234,163 @@ pre code {
 <p>counted 77 students who were surveyed in 2020-2021 (5.8 %)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHVuZ3JvdXAoKSAlPiVcbiAgY291bnQoU3VydmV5ZWQpXG5gYGAifQ== -->
-<pre class="r"><code>df_nsc %&gt;%
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHVuZ3JvdXAoKSAlPiVcbiAgY291bnQoU3VydmV5ZWQpXG5gYGBcbmBgYCJ9 -->
+<pre class="r"><code>```r
+df_nsc %&gt;%
   group_by(StudentNumber) %&gt;%
   mutate(row_number = row_number()) %&gt;%
   filter(row_number == max(row_number, na.rm = TRUE)) %&gt;%
   ungroup() %&gt;%
   count(Surveyed)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>distribution of enrollment statuses:</p>
-<ul>
-<li>F = 852</li>
-<li>Q = 194</li>
-<li>H = 87</li>
-<li>L = 61</li>
-<li>W = 73</li>
-<li>A = 2</li>
-<li>NA = 131</li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHVuZ3JvdXAoKSAlPiVcbiAgY291bnQoRW5yb2xsbWVudFN0YXR1cylcbmBgYCJ9 -->
-<pre class="r"><code>df_nsc %&gt;%
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+distribution of enrollment statuses:
+
+* F = 852
+* Q = 194
+* H = 87
+* L = 61
+* W = 73
+* A = 2
+* NA = 131
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHVuZ3JvdXAoKSAlPiVcbiAgY291bnQoRW5yb2xsbWVudFN0YXR1cylcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+df_nsc %&gt;%
   group_by(StudentNumber) %&gt;%
   mutate(row_number = row_number()) %&gt;%
   filter(row_number == max(row_number, na.rm = TRUE)) %&gt;%
   ungroup() %&gt;%
   count(EnrollmentStatus)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>distribution of enrollment among survey takers:</p>
-<ul>
-<li>F = 51</li>
-<li>Q = 11</li>
-<li>H = 2</li>
-<li>L = 1</li>
-<li>W = 3</li>
-<li>NA = 9</li>
-</ul>
-<p>if we assume all NAs are W, then 84.4 % of those surveyed had an active enrollment as their last record</p>
-<p>if we assume all NAs are at least L, then 96.2 % of those surveyed had an active enrollment as their last record</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSxcbiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpXG5gYGAifQ== -->
-<pre class="r"><code>df_nsc %&gt;%
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+distribution of enrollment among survey takers:
+
+* F = 51
+* Q = 11
+* H = 2
+* L = 1
+* W = 3
+* NA = 9
+
+if we assume all NAs are W, then 84.4 % of those surveyed had an active enrollment as their last record
+
+if we assume all NAs are at least L, then 96.2 % of those surveyed had an active enrollment as their last record
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSxcbiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+df_nsc %&gt;%
   group_by(StudentNumber) %&gt;%
   mutate(row_number = row_number()) %&gt;%
   filter(row_number == max(row_number, na.rm = TRUE),
          Surveyed == 1) %&gt;%
   ungroup() %&gt;%
   count(EnrollmentStatus)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Distribution of each student&#39;s first enrollment month:
+
+* May = 4
+* June = 1
+* August = 1227
+* September = 75
+* October = 1
+* December = 1
+* January = 5
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGZpbHRlcihPcmRlciA9PSAxKSAlPiVcbiAgbXV0YXRlKG1vbnRoID0gbW9udGgoRW5yb2xsbWVudEJlZ2luKSkgJT4lXG4gIGNvdW50KG1vbnRoKVxuYGBgIn0= --&gt;
+
+```r
+df_nsc %&gt;%
+  ungroup() %&gt;%
+  filter(Order == 1) %&gt;%
+  mutate(month = month(EnrollmentBegin)) %&gt;%
+  count(month)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI4IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVFzVTdEUUF4MXJrbExJMUdReXNDSUVBTkxJeEhFREJKc0xJZ0JkVDNTUUNOU1g1VmNCUnQ4QzcvRHp6QjJhdkJkYkFsZEpOK3ozOTJ6bi9ONE43OU01eWtBRENDR0JBWUpwVEM4ZmJqSXIzS0FXRkVWMGMzWTRRZTltbExpeUFuRjN2VXYrTy9taVBHWThZVHhsUEdNOGJ6SHo2MDdSOTkwN0xzK0ZHNXU3SWRCL0VONDMrYytuZ0lqQ2VwVjJWSnk2TTB3dVRKb2wySVZBOG00TWUrWnlOeE05VVZIMTNYYnNIZFI2MVo2QzVrdXROWFpTME42cW5hQlpHVFd0akpJSWpYbFRmNkxveVlnRGpib25DeG14WEtEYjdQY0RlQk5nZDFGL0Zja1YvMUkxWEdyaEZzTlMzeXRzQlR2dFg0dWF5NG10TEZmT0ZzM0ZWclpoTmcyczhacWVaY1dwaGJHN3dhN1AvTllrMUVWQWdBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["month"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"5"},{"1":"5","2":"4"},{"1":"6","2":"1"},{"1":"8","2":"1227"},{"1":"9","2":"75"},{"1":"10","2":"1"},{"1":"12","2":"1"},{"1":"NA","2":"86"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Distribution of first enrollments</p>
+<ul>
+<li>F = 898</li>
+<li>Q = 189</li>
+<li>H = 80</li>
+<li>L = 46</li>
+<li>W = 57</li>
+<li>A = 1</li>
+<li>NA = 129</li>
+</ul>
+<p>Note that some of these students enrolled in the summer, so their first-time enrollment may not be full-time.</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGZpbHRlcihDb2xsZWdlU2VxdWVuY2UgPT0gMSkgJT4lXG4gIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpXG5gYGAifQ== -->
+<pre class="r"><code>df_nsc %&gt;%
+  ungroup() %&gt;%
+  filter(CollegeSequence == 1) %&gt;%
+  count(EnrollmentStatus)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NywibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI3IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJ5MDdETUJEY09JK3FrWUJLL1k1R2FoRWZnQ2lQQXdlZ0IzcmdZbElYSWx5N2Noemd5RGR3NVV1NU5GMDdYa1J6V0hsMnZUTTdYai9NbDZmNU1nZUFHQkpJSVU0UlFuWnhONTJkelFBU2hsbUVOME4zZm1MWEdBRVc0eU04Qi83UzUwakhiZ3pIejc2Y3lDRTVrK0pkeUJyUnlET0Q1QldCZXdJM0JHNEpQQkk0SnpEdmlhZWw1RFZwLzAxYzg5SnFnMmlIRWZ4bVAzNEV3RGZHQXVNcGVML3VTeXErRVNUSlFuRjBxWXlXY2lPVVhWaHVtNW9NcVI1N2FQUkhRUXB1TkhNcmFkdjJ0MnVNMjU3WmZNVXRMOVlHS1ozaEE3bUIzdHBLS3hSajQ3RGovK1RJOUFvbmpYTERWNVB5dFZGdms2a2JFUDRLZ3FFby9COWgxbzFNeUZoS1d4VHFwVktDdGlMNXM1QWhPY1pIK2pjV1cxTXBTeS9CYWwxWWJUbjE1YVdXVk9rK1k3Y0h0QzBoZjNjQ0FBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["EnrollmentStatus"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"F","2":"1691"},{"1":"Q","2":"328"},{"1":"H","2":"146"},{"1":"L","2":"83"},{"1":"W","2":"92"},{"1":"A","2":"3"},{"1":"NA","2":"71"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[7]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5TQyBhbmFseXNpcyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCiMjIE5vdGVib29rIHNldHVwDQoNCiogRmlsZW5hbWU6IDA2LW5zYy1hbmFseXNpcy5SbWQNCiogUGF0aDogc3JjLzA2LW5zYy1hbmFseXNpcy5SbWQNCiogQXV0aG9yOiBTdGV2ZW4gTWFjYXBhZ2FsDQoqIERhdGUgY3JlYXRlZDogMjAyMi0wNi0yMg0KKiBEYXRlIG1vZGlmaWVkOiAyMDIyLTA2LTIyDQoqIFB1cnBvc2U6IFRoaXMgbm90ZWJvb2sgcHJlcHMgYW5kIGNvbmR1Y3RzIGFuYWx5c2lzIGZvciBOU0MgZGF0YSBmb3IgUXVlc3Rpb24gMy4NCiogSW5wdXRzOiBkZl9uc2MNCiogT3V0cHV0czogDQoqIE5vdGVzOg0KDQojIFN1cnZleSBhbmFseXNpcw0KDQpjb3VudGVkIDc3IHN0dWRlbnRzIHdobyB3ZXJlIHN1cnZleWVkIGluIDIwMjAtMjAyMSAoNS44ICUpDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgZ3JvdXBfYnkoU3R1ZGVudE51bWJlcikgJT4lDQogIG11dGF0ZShyb3dfbnVtYmVyID0gcm93X251bWJlcigpKSAlPiUNCiAgZmlsdGVyKHJvd19udW1iZXIgPT0gbWF4KHJvd19udW1iZXIsIG5hLnJtID0gVFJVRSkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KFN1cnZleWVkKQ0KYGBgDQoNCmRpc3RyaWJ1dGlvbiBvZiBlbnJvbGxtZW50IHN0YXR1c2VzOg0KDQoqIEYgPSA4NTINCiogUSA9IDE5NA0KKiBIID0gODcNCiogTCA9IDYxDQoqIFcgPSA3Mw0KKiBBID0gMg0KKiBOQSA9IDEzMQ0KYGBge3J9DQpkZl9uc2MgJT4lDQogIGdyb3VwX2J5KFN0dWRlbnROdW1iZXIpICU+JQ0KICBtdXRhdGUocm93X251bWJlciA9IHJvd19udW1iZXIoKSkgJT4lDQogIGZpbHRlcihyb3dfbnVtYmVyID09IG1heChyb3dfbnVtYmVyLCBuYS5ybSA9IFRSVUUpKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBjb3VudChFbnJvbGxtZW50U3RhdHVzKQ0KYGBgDQoNCg0KZGlzdHJpYnV0aW9uIG9mIGVucm9sbG1lbnQgYW1vbmcgc3VydmV5IHRha2VyczoNCg0KKiBGID0gNTENCiogUSA9IDExDQoqIEggPSAyDQoqIEwgPSAxDQoqIFcgPSAzDQoqIE5BID0gOQ0KDQppZiB3ZSBhc3N1bWUgYWxsIE5BcyBhcmUgVywgdGhlbiA4NC40ICUgb2YgdGhvc2Ugc3VydmV5ZWQgaGFkIGFuIGFjdGl2ZSBlbnJvbGxtZW50IGFzIHRoZWlyIGxhc3QgcmVjb3JkDQoNCmlmIHdlIGFzc3VtZSBhbGwgTkFzIGFyZSBhdCBsZWFzdCBMLCB0aGVuIDk2LjIgJSBvZiB0aG9zZSBzdXJ2ZXllZCBoYWQgYW4gYWN0aXZlIGVucm9sbG1lbnQgYXMgdGhlaXIgbGFzdCByZWNvcmQNCmBgYHtyfQ0KZGZfbnNjICU+JQ0KICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiUNCiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JQ0KICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSwNCiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpDQpgYGANCg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5TQyBhbmFseXNpcyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCiMjIE5vdGVib29rIHNldHVwDQoNCiogRmlsZW5hbWU6IDA2LW5zYy1hbmFseXNpcy5SbWQNCiogUGF0aDogc3JjLzA2LW5zYy1hbmFseXNpcy5SbWQNCiogQXV0aG9yOiBTdGV2ZW4gTWFjYXBhZ2FsDQoqIERhdGUgY3JlYXRlZDogMjAyMi0wNi0yMg0KKiBEYXRlIG1vZGlmaWVkOiAyMDIyLTA3LTA1DQoqIFB1cnBvc2U6IFRoaXMgbm90ZWJvb2sgcHJlcHMgYW5kIGNvbmR1Y3RzIGFuYWx5c2lzIGZvciBOU0MgZGF0YSBmb3IgUXVlc3Rpb24gMy4NCiogSW5wdXRzOiBkZl9uc2MNCiogT3V0cHV0czogDQoqIE5vdGVzOg0KDQojIFN1cnZleSBhbmFseXNpcw0KDQpjb3VudGVkIDc3IHN0dWRlbnRzIHdobyB3ZXJlIHN1cnZleWVkIGluIDIwMjAtMjAyMSAoNS44ICUpDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgZ3JvdXBfYnkoU3R1ZGVudE51bWJlcikgJT4lDQogIG11dGF0ZShyb3dfbnVtYmVyID0gcm93X251bWJlcigpKSAlPiUNCiAgZmlsdGVyKHJvd19udW1iZXIgPT0gbWF4KHJvd19udW1iZXIsIG5hLnJtID0gVFJVRSkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KFN1cnZleWVkKQ0KYGBgDQoNCmRpc3RyaWJ1dGlvbiBvZiBlbnJvbGxtZW50IHN0YXR1c2VzOg0KDQoqIEYgPSA4NTINCiogUSA9IDE5NA0KKiBIID0gODcNCiogTCA9IDYxDQoqIFcgPSA3Mw0KKiBBID0gMg0KKiBOQSA9IDEzMQ0KYGBge3J9DQpkZl9uc2MgJT4lDQogIGdyb3VwX2J5KFN0dWRlbnROdW1iZXIpICU+JQ0KICBtdXRhdGUocm93X251bWJlciA9IHJvd19udW1iZXIoKSkgJT4lDQogIGZpbHRlcihyb3dfbnVtYmVyID09IG1heChyb3dfbnVtYmVyLCBuYS5ybSA9IFRSVUUpKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBjb3VudChFbnJvbGxtZW50U3RhdHVzKQ0KYGBgDQoNCg0KZGlzdHJpYnV0aW9uIG9mIGVucm9sbG1lbnQgYW1vbmcgc3VydmV5IHRha2VyczoNCg0KKiBGID0gNTENCiogUSA9IDExDQoqIEggPSAyDQoqIEwgPSAxDQoqIFcgPSAzDQoqIE5BID0gOQ0KDQppZiB3ZSBhc3N1bWUgYWxsIE5BcyBhcmUgVywgdGhlbiA4NC40ICUgb2YgdGhvc2Ugc3VydmV5ZWQgaGFkIGFuIGFjdGl2ZSBlbnJvbGxtZW50IGFzIHRoZWlyIGxhc3QgcmVjb3JkDQoNCmlmIHdlIGFzc3VtZSBhbGwgTkFzIGFyZSBhdCBsZWFzdCBMLCB0aGVuIDk2LjIgJSBvZiB0aG9zZSBzdXJ2ZXllZCBoYWQgYW4gYWN0aXZlIGVucm9sbG1lbnQgYXMgdGhlaXIgbGFzdCByZWNvcmQNCmBgYHtyfQ0KZGZfbnNjICU+JQ0KICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiUNCiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JQ0KICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSwNCiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpDQpgYGANCg0KRGlzdHJpYnV0aW9uIG9mIGVhY2ggc3R1ZGVudCdzIGZpcnN0IGVucm9sbG1lbnQgbW9udGg6DQoNCiogTWF5ID0gNA0KKiBKdW5lID0gMQ0KKiBBdWd1c3QgPSAxMjI3DQoqIFNlcHRlbWJlciA9IDc1DQoqIE9jdG9iZXIgPSAxDQoqIERlY2VtYmVyID0gMQ0KKiBKYW51YXJ5ID0gNQ0KDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBmaWx0ZXIoT3JkZXIgPT0gMSkgJT4lDQogIG11dGF0ZShtb250aCA9IG1vbnRoKEVucm9sbG1lbnRCZWdpbikpICU+JQ0KICBjb3VudChtb250aCkNCmBgYA0KDQpEaXN0cmlidXRpb24gb2YgZmlyc3QgZW5yb2xsbWVudHMNCg0KKiBGID0gODk4DQoqIFEgPSAxODkNCiogSCA9IDgwDQoqIEwgPSA0Ng0KKiBXID0gNTcNCiogQSA9IDENCiogTkEgPSAxMjkNCg0KTm90ZSB0aGF0IHNvbWUgb2YgdGhlc2Ugc3R1ZGVudHMgZW5yb2xsZWQgaW4gdGhlIHN1bW1lciwgc28gdGhlaXIgZmlyc3QtdGltZSBlbnJvbGxtZW50IG1heSBub3QgYmUgZnVsbC10aW1lLg0KDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBmaWx0ZXIoQ29sbGVnZVNlcXVlbmNlID09IDEpICU+JQ0KICBjb3VudChFbnJvbGxtZW50U3RhdHVzKQ0KYGBg</div>
 
 
 

@@ -3,7 +3,7 @@
 # Path: munge/04-clean-nsc-data.R                                              #
 # Author: Steven Macapagal                                                     #
 # Date created: 2022-06-20                                                     #
-# Date modified: 2022-06-22                                                    #
+# Date modified: 2022-07-05                                                    #
 # Purpose: This script cleans NSC data.                                        #
 # Inputs:  raw_nsc, get_students()                                             #
 # Outputs: df_nsc                                                              #
@@ -21,7 +21,9 @@ df_nsc <- raw_nsc %>%
          HighSchoolGradDate = ymd(HighSchoolGradDate),
          CohortYear = year(HighSchoolGradDate),
          EnrollmentBegin = ymd(EnrollmentBegin),
-         EnrollmentEnd = ymd(EnrollmentEnd)) %>%
+         EnrollmentEnd = ymd(EnrollmentEnd),
+         EnrollmentStatus = as.factor(EnrollmentStatus),
+         EnrollmentStatus = fct_relevel(EnrollmentStatus, "F", "Q", "H", "L", "W", "A")) %>%
   
   # select 2021 grads
   filter(CohortYear == 2021) %>%
@@ -63,7 +65,12 @@ df_nsc <- raw_nsc %>%
            CohortYear) %>%
   arrange(Region,
           SchoolName,
-          StudentFullName)
+          StudentFullName,
+          CollegeSequence,
+          EnrollmentBegin,
+          EnrollmentStatus) %>%
+  group_by(StudentNumber) %>%
+  mutate(Order = row_number())
 
 ## sanity checks
 
