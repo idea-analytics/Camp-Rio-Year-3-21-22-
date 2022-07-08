@@ -1,0 +1,48 @@
+---
+title: "Survey_Item_Analysis"
+author: "AO"
+date: "6/23/2022"
+output: html_document
+---
+
+Create student level CNI and SLSS composite scores (i.e., average across all CNI or SLSS scores grouped by student)
+```{r}
+
+ac_survey_composites <- ac_survey_clean%>%
+  rowwise()%>%
+  mutate(CNI_Std_Mean = mean(c_across(starts_with("CNI")), na.rm = T),
+        SLSS_Std_Mean = mean(c_across(starts_with("SLSS")), na.rm = T)) %>%
+  ungroup()
+
+```
+
+Create overall mean CNI, SLSS
+```{r}
+#mutate will keep all collumns, summarize will create a new df with only the new summary columns
+ac_survey_mean <- ac_survey_composites %>%
+  summarize(CNI_Mean = mean(CNI_Std_Mean),
+         SLSS_Mean = mean(SLSS_Std_Mean))
+```
+
+Create CNI and SLSS mean by grade level
+```{r}
+
+ac_survey_grdlvl_mean <- ac_survey_composites %>%
+  group_by(GradeLevel) %>%
+  summarize(CNI_Mean = mean(CNI_Std_Mean),
+         SLSS_Mean = mean(SLSS_Std_Mean))
+```
+
+Create CNI and SLSS mean by dose level
+```{r}
+ac_survey_dose_mean <- ac_survey_composites %>%
+  group_by(CRDose) %>%
+  summarize(CNI_Mean = mean(CNI_Std_Mean),
+         SLSS_Mean = mean(SLSS_Std_Mean))
+```
+
+summary
+unique(ac_survey_clean$CR_2)
+[1] "Slightly interested"   "Quite interested"      "Extremely interested"  "Not at all interested"
+[5] "Somewhat interested"  
+
