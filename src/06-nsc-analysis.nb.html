@@ -222,7 +222,7 @@ pre code {
 <li>Path: src/06-nsc-analysis.Rmd</li>
 <li>Author: Steven Macapagal</li>
 <li>Date created: 2022-06-22</li>
-<li>Date modified: 2022-07-05</li>
+<li>Date modified: 2022-07-12</li>
 <li>Purpose: This notebook preps and conducts analysis for NSC data for Question 3.</li>
 <li>Inputs: df_nsc</li>
 <li>Outputs:</li>
@@ -234,51 +234,53 @@ pre code {
 <p>counted 77 students who were surveyed in 2020-2021 (5.8 %)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHVuZ3JvdXAoKSAlPiVcbiAgY291bnQoU3VydmV5ZWQpXG5gYGBcbmBgYCJ9 -->
-<pre class="r"><code>```r
-df_nsc %&gt;%
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHVuZ3JvdXAoKSAlPiVcbiAgY291bnQoU3VydmV5ZWQpXG5gYGAifQ== -->
+<pre class="r"><code>df_nsc %&gt;%
   group_by(StudentNumber) %&gt;%
   mutate(row_number = row_number()) %&gt;%
   filter(row_number == max(row_number, na.rm = TRUE)) %&gt;%
   ungroup() %&gt;%
   count(Surveyed)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-distribution of enrollment statuses:
-
-* F = 852
-* Q = 194
-* H = 87
-* L = 61
-* W = 73
-* A = 2
-* NA = 131
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHVuZ3JvdXAoKSAlPiVcbiAgY291bnQoRW5yb2xsbWVudFN0YXR1cylcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVFRVzdDTUJEY0JFeExKR2dsbmxFUnFTQzRjcUJYSkVRdlhFM2l0bEdESFRrTzBGdWYzQmVRcmgydlFNN0JPenZlbWZWazk3YWZKL3NFQUhyUUJ3WTloaEFHNiszcmJERUQ2TWZZUlhnenRQV0NVeE1FbGh6NzZyN1ZIeUVZZFR4N3dib0pESmprUjFFamVIWkRIZm40M3VpVCtCRTViWkdCYXFqVk9TV2xzLy9GbzIzYmEyaWZsYndtZXlLVG5CdWVmbWpVWXhkS0hsUmxDaVZSRk50Z0xCQkhPaUNlR21sZmtrK3pyMForVDVkMmdidStoWS84ajduRGRtWGNlaXZtclFaQ2ZoWlMwTnRMZmhDbGI4YVkyQVZPSzExSVEwbVFyVk9qREtlNUpGTWxNUzRiWFA4QmJ5Y1ZmTkFCQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Surveyed"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"0","2":"1323"},{"1":"1","2":"77"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>distribution of enrollment statuses:</p>
+<ul>
+<li>F = 852</li>
+<li>Q = 194</li>
+<li>H = 87</li>
+<li>L = 61</li>
+<li>W = 73</li>
+<li>A = 2</li>
+<li>NA = 131</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfbnNjICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGZpbHRlcihDb2xsZWdlU2VxdWVuY2UgPT0gMSkgJT4lXG4gIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpXG5gYGBcbmBgYCJ9 -->
+<pre class="r"><code>```r
 df_nsc %&gt;%
-  group_by(StudentNumber) %&gt;%
-  mutate(row_number = row_number()) %&gt;%
-  filter(row_number == max(row_number, na.rm = TRUE)) %&gt;%
   ungroup() %&gt;%
+  filter(CollegeSequence == 1) %&gt;%
   count(EnrollmentStatus)</code></pre>
 <pre><code>
 &lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NywibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjcgeCAyIn19LCJyZGYiOiJINHNJQUFBQUFBQUFCbDFSeTA3RE1CRGNPSStxa1lCSy9ZNUdhaEVmZ0NpUEF3ZWdCM3JnWWxJWElseTdjaHpneURkdzVVdTVORjA3WGtSeldIbDJ2VE03WGovTWw2ZjVNZ2VBR0JKSUlVNFJRblp4TjUyZHpRQVNobG1FTjBOM2ZtTFhHQUVXNHlNOEIvN1M1MGpIYmd6SHo3NmN5Q0U1aytKZHlCclJ5RE9ENUJXQmV3STNCRzRKUEJJNEp6RHZpYWVsNURWcC8wMWM4OUpxZzJpSEVmeG1QMzRFd0RmR0F1TXBlTC91U3lxK0VTVEpRbkYwcVl5V2NpT1VYVmh1bTVvTXFSNTdhUFJIUVFwdU5ITXJhZHYydDJ1TTI1N1pmTVV0TDlZR0taM2hBN21CM3RwS0t4Umo0N0RqLytUSTlBb25qWExEVjVQeXRWRnZrNmtiRVA0S2dxRW8vQjloMW8xTXlGaEtXeFRxcFZLQ3RpTDVzNUFoT2NaSCtqY1dXMU1wU3kvQmFsMVliVG4xNWFXV1ZPaytZN2NIdEMwaGYzY0NBQUE9In0= --&gt;
+
+&lt;div data-pagedtable=&quot;false&quot;&gt;
+  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
+{&quot;columns&quot;:[{&quot;label&quot;:[&quot;EnrollmentStatus&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;fctr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;n&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;int&quot;],&quot;align&quot;:[&quot;right&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;F&quot;,&quot;2&quot;:&quot;1691&quot;},{&quot;1&quot;:&quot;Q&quot;,&quot;2&quot;:&quot;328&quot;},{&quot;1&quot;:&quot;H&quot;,&quot;2&quot;:&quot;146&quot;},{&quot;1&quot;:&quot;L&quot;,&quot;2&quot;:&quot;83&quot;},{&quot;1&quot;:&quot;W&quot;,&quot;2&quot;:&quot;92&quot;},{&quot;1&quot;:&quot;A&quot;,&quot;2&quot;:&quot;3&quot;},{&quot;1&quot;:&quot;NA&quot;,&quot;2&quot;:&quot;71&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[2]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[7]},&quot;pages&quot;:{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;!-- rnb-frame-end --&gt;
 
 &lt;!-- rnb-chunk-end --&gt;
 
@@ -306,9 +308,8 @@ if we assume all NAs are at least L, then 96.2 % of those surveyed had an active
 &lt;!-- rnb-chunk-begin --&gt;
 
 
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSxcbiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpXG5gYGBcbmBgYCJ9 --&gt;
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiVcbiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JVxuICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSxcbiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpXG5gYGAifQ== --&gt;
 
-```r
 ```r
 df_nsc %&gt;%
   group_by(StudentNumber) %&gt;%
@@ -317,48 +318,28 @@ df_nsc %&gt;%
          Surveyed == 1) %&gt;%
   ungroup() %&gt;%
   count(EnrollmentStatus)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-Distribution of each student&#39;s first enrollment month:
-
-* May = 4
-* June = 1
-* August = 1227
-* September = 75
-* October = 1
-* December = 1
-* January = 5
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGZpbHRlcihPcmRlciA9PSAxKSAlPiVcbiAgbXV0YXRlKG1vbnRoID0gbW9udGgoRW5yb2xsbWVudEJlZ2luKSkgJT4lXG4gIGNvdW50KG1vbnRoKVxuYGBgIn0= --&gt;
-
-```r
-df_nsc %&gt;%
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Distribution of each student’s first enrollment month:</p>
+<ul>
+<li>May = 4</li>
+<li>June = 1</li>
+<li>August = 1227</li>
+<li>September = 75</li>
+<li>October = 1</li>
+<li>December = 1</li>
+<li>January = 5</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICB1bmdyb3VwKCkgJT4lXG4gIGZpbHRlcihPcmRlciA9PSAxKSAlPiVcbiAgbXV0YXRlKG1vbnRoID0gbW9udGgoRW5yb2xsbWVudEJlZ2luKSkgJT4lXG4gIGNvdW50KG1vbnRoKVxuYGBgIn0= -->
+<pre class="r"><code>df_nsc %&gt;%
   ungroup() %&gt;%
   filter(Order == 1) %&gt;%
   mutate(month = month(EnrollmentBegin)) %&gt;%
   count(month)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI4IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVFzVTdEUUF4MXJrbExJMUdReXNDSUVBTkxJeEhFREJKc0xJZ0JkVDNTUUNOU1g1VmNCUnQ4QzcvRHp6QjJhdkJkYkFsZEpOK3ozOTJ6bi9ONE43OU01eWtBRENDR0JBWUpwVEM4ZmJqSXIzS0FXRkVWMGMzWTRRZTltbExpeUFuRjN2VXYrTy9taVBHWThZVHhsUEdNOGJ6SHo2MDdSOTkwN0xzK0ZHNXU3SWRCL0VONDMrYytuZ0lqQ2VwVjJWSnk2TTB3dVRKb2wySVZBOG00TWUrWnlOeE05VVZIMTNYYnNIZFI2MVo2QzVrdXROWFpTME42cW5hQlpHVFd0akpJSWpYbFRmNkxveVlnRGpib25DeG14WEtEYjdQY0RlQk5nZDFGL0Zja1YvMUkxWEdyaEZzTlMzeXRzQlR2dFg0dWF5NG10TEZmT0ZzM0ZWclpoTmcyczhacWVaY1dwaGJHN3dhN1AvTllrMUVWQWdBQSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["month"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"5"},{"1":"5","2":"4"},{"1":"6","2":"1"},{"1":"8","2":"1227"},{"1":"9","2":"75"},{"1":"10","2":"1"},{"1":"12","2":"1"},{"1":"NA","2":"86"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Distribution of first enrollments</p>
@@ -380,17 +361,75 @@ df_nsc %&gt;%
   filter(CollegeSequence == 1) %&gt;%
   count(EnrollmentStatus)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NywibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI3IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJ5MDdETUJEY09JK3FrWUJLL1k1R2FoRWZnQ2lQQXdlZ0IzcmdZbElYSWx5N2Noemd5RGR3NVV1NU5GMDdYa1J6V0hsMnZUTTdYai9NbDZmNU1nZUFHQkpJSVU0UlFuWnhONTJkelFBU2hsbUVOME4zZm1MWEdBRVc0eU04Qi83UzUwakhiZ3pIejc2Y3lDRTVrK0pkeUJyUnlET0Q1QldCZXdJM0JHNEpQQkk0SnpEdmlhZWw1RFZwLzAxYzg5SnFnMmlIRWZ4bVAzNEV3RGZHQXVNcGVML3VTeXErRVNUSlFuRjBxWXlXY2lPVVhWaHVtNW9NcVI1N2FQUkhRUXB1TkhNcmFkdjJ0MnVNMjU3WmZNVXRMOVlHS1ozaEE3bUIzdHBLS3hSajQ3RGovK1RJOUFvbmpYTERWNVB5dFZGdms2a2JFUDRLZ3FFby9COWgxbzFNeUZoS1d4VHFwVktDdGlMNXM1QWhPY1pIK2pjV1cxTXBTeS9CYWwxWWJUbjE1YVdXVk9rK1k3Y0h0QzBoZjNjQ0FBQT0ifQ== -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="matriculation-according-to-camp-rio" class="section level2">
+<h2>Matriculation according to Camp Rio</h2>
+<p>There were 435 2021 seniors who attended Camp Rio and 933 who did not.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfbnNjICU+JVxuICBmaWx0ZXIoeWVhcihFbnJvbGxtZW50RW5kKSA9PSAyMDIxLFxuICAgICAgICAgbW9udGgoRW5yb2xsbWVudEVuZCkgPT0gbWF4KG1vbnRoKEVucm9sbG1lbnRFbmQpKSkgJT4lXG4gIGdyb3VwX2J5KEF0dGVuZGVkKSAlPiVcbiAgc3VtbWFyaXplKG4gPSBuKCkpXG5gYGAifQ== -->
+<pre class="r"><code>df_nsc %&gt;%
+  filter(year(EnrollmentEnd) == 2021,
+         month(EnrollmentEnd) == max(month(EnrollmentEnd))) %&gt;%
+  group_by(Attended) %&gt;%
+  summarize(n = n())</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVFUVS9ETUF4MXUyV3dTdU5ESExqMkQ2d1NRNGd6MnM0STdiUnJhQUpFZEU3VlpvSWpmNFpmd1A5YmNkSllpT1NRMk05Kzc5blpibmEzeGE0QWdBbE1RY0JFVUFpejlkUE42bTRGTU0wcHk2Z3k5KzhuZFYxUjRNR0w4STZGeXdmbk5DcXR5clhjdCtYVzJGaTQzaGhWUGxwWGpnMS9aWURGcUpQOWtPWjNZaVJRN25XZm1KeXlDVStEQ1d2ZTJZK0ttVUgraTY1aEdJNnBmTjNJbnVVWkxKUjBzbnJwaUU5WlNqbXhyVE1XaVpUN0R4QUpPZXNTNFB5QWZoSzFyTjhPK0w2ODl3YWhQSjVGalBQL3NiZk1oeWdsb3RSTTQ2dEJ6Yk0zOGxrM01UbWpqY1BDVmRzWmRMd0pvWDNsckpQY1Y5UzJZU1RzQnNkZnlOdTNjUGdCQUFBPSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["EnrollmentStatus"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"F","2":"1691"},{"1":"Q","2":"328"},{"1":"H","2":"146"},{"1":"L","2":"83"},{"1":"W","2":"92"},{"1":"A","2":"3"},{"1":"NA","2":"71"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[7]},"pages":{}}}
+{"columns":[{"label":["Attended"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Attended Camp Rio","2":"435"},{"1":"Did Not Attend Camp Rio","2":"933"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>If we aggregate all enrollment with status at least “L” and remove all NA enrollments, then we get these distributions:</p>
+<p><strong>Did Not Attend</strong></p>
+<ul>
+<li>Above “L” = 857/891 = 96.2%</li>
+<li>“W” or “A” = 34/891 = 3.8%</li>
+</ul>
+<p><strong>Attended</strong></p>
+<ul>
+<li>Above “L” = 909/931 = 97.6%</li>
+<li>“W” or “A” = 22/931 = 2.4%</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjIsIm5jb2wiOjMsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMiB4IDMiXSwiR3JvdXBzIjpbIkF0dGVuZGVkIFsyXSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVF5MDdETUJEY1BOelNvRUlSRWx3ajdvMUVFUWVPS0QwajFCNG9SeE9iMXNLeG84UlZPZklmL0d2REpyRlZaRXQyZG1jbXM0L1Zjdk9RYkJJQWlDQUdBaEhCRUViNTYvM2ljUUVRaDVnRnlFeTY3emVxcm5zcHdBeHZhSW1yWjJPNFlweWxPUzJyZENXMEpXNlhncVV2MnFTRDRFUURUUHYvSWZoRnUvZFREamQ0Nzd6Q3BKQzBhV3hSQnlhTUdwcDkxclRrbm54UzYwT21FRytjN3c4K2Jkc2VmVjhubXRuNU8vRE1EV1B6ODdVdWVhNmw1RnZ1SkcvQzdGak5EeGo3bm1OZEdhRVZ1b2JkcW9qWGRWQjd3T1ZlZFYyd2ViSGJxNi81VXpkWlR3OW5hdVB3WHh3TkplUFdXaEZyTmVKcUs1UnJra2o2d2FWTkxuQWwvYkJaVlF0bDNBb1JiVEtqRFhXNnBORFNJZjFzY1B3RGFub3NGeUlDQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Attended"],"name":[1],"type":["chr"],"align":["left"]},{"label":["SomeCollege"],"name":[2],"type":["int"],"align":["right"]},{"label":["Withdrew"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Attended Camp Rio","2":"411","3":"22"},{"1":"Did Not Attend Camp Rio","2":"857","3":"34"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now, we will conduct a chi-square test of independence.</p>
+<ul>
+<li>H0: Camp Rio attendance and college matriculation are independent.</li>
+<li>HA: Not.</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2hpc3FfdGVzdF9tYXRyaWMgPC0gdGFibGVfY3JfbWF0cmljX3dpZGUgJT4lXG4gIGNvbHVtbl90b19yb3duYW1lcyh2YXIgPSBcIkF0dGVuZGVkXCIpICU+JVxuICBhcy5tYXRyaXgoKSAlPiVcbiAgY2hpc3EudGVzdCgpXG5cbmNoaXNxX3N0YXRfbWF0cmljIDwtIGNoaXNxX3Rlc3RfbWF0cmljJHN0YXRpc3RpY1xucHZhbF9tYXRyaWMgPC0gY2hpc3FfdGVzdF9tYXRyaWMkcC52YWx1ZVxuYGBgIn0= -->
+<pre class="r"><code>chisq_test_matric &lt;- table_cr_matric_wide %&gt;%
+  column_to_rownames(var = &quot;Attended&quot;) %&gt;%
+  as.matrix() %&gt;%
+  chisq.test()
+
+chisq_stat_matric &lt;- chisq_test_matric$statistic
+pval_matric &lt;- chisq_test_matric$p.value</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The chi-square stat of 0.859861 with df = 1, has a p-value of 0.3537776, which is greater than 0.05. We fail to reject the null and conclude there is not enough evidence to suggest Camp Rio attendance and college matriculation are dependent.</p>
+<!-- rnb-text-end -->
+</div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5TQyBhbmFseXNpcyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCiMjIE5vdGVib29rIHNldHVwDQoNCiogRmlsZW5hbWU6IDA2LW5zYy1hbmFseXNpcy5SbWQNCiogUGF0aDogc3JjLzA2LW5zYy1hbmFseXNpcy5SbWQNCiogQXV0aG9yOiBTdGV2ZW4gTWFjYXBhZ2FsDQoqIERhdGUgY3JlYXRlZDogMjAyMi0wNi0yMg0KKiBEYXRlIG1vZGlmaWVkOiAyMDIyLTA3LTA1DQoqIFB1cnBvc2U6IFRoaXMgbm90ZWJvb2sgcHJlcHMgYW5kIGNvbmR1Y3RzIGFuYWx5c2lzIGZvciBOU0MgZGF0YSBmb3IgUXVlc3Rpb24gMy4NCiogSW5wdXRzOiBkZl9uc2MNCiogT3V0cHV0czogDQoqIE5vdGVzOg0KDQojIFN1cnZleSBhbmFseXNpcw0KDQpjb3VudGVkIDc3IHN0dWRlbnRzIHdobyB3ZXJlIHN1cnZleWVkIGluIDIwMjAtMjAyMSAoNS44ICUpDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgZ3JvdXBfYnkoU3R1ZGVudE51bWJlcikgJT4lDQogIG11dGF0ZShyb3dfbnVtYmVyID0gcm93X251bWJlcigpKSAlPiUNCiAgZmlsdGVyKHJvd19udW1iZXIgPT0gbWF4KHJvd19udW1iZXIsIG5hLnJtID0gVFJVRSkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KFN1cnZleWVkKQ0KYGBgDQoNCmRpc3RyaWJ1dGlvbiBvZiBlbnJvbGxtZW50IHN0YXR1c2VzOg0KDQoqIEYgPSA4NTINCiogUSA9IDE5NA0KKiBIID0gODcNCiogTCA9IDYxDQoqIFcgPSA3Mw0KKiBBID0gMg0KKiBOQSA9IDEzMQ0KYGBge3J9DQpkZl9uc2MgJT4lDQogIGdyb3VwX2J5KFN0dWRlbnROdW1iZXIpICU+JQ0KICBtdXRhdGUocm93X251bWJlciA9IHJvd19udW1iZXIoKSkgJT4lDQogIGZpbHRlcihyb3dfbnVtYmVyID09IG1heChyb3dfbnVtYmVyLCBuYS5ybSA9IFRSVUUpKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBjb3VudChFbnJvbGxtZW50U3RhdHVzKQ0KYGBgDQoNCg0KZGlzdHJpYnV0aW9uIG9mIGVucm9sbG1lbnQgYW1vbmcgc3VydmV5IHRha2VyczoNCg0KKiBGID0gNTENCiogUSA9IDExDQoqIEggPSAyDQoqIEwgPSAxDQoqIFcgPSAzDQoqIE5BID0gOQ0KDQppZiB3ZSBhc3N1bWUgYWxsIE5BcyBhcmUgVywgdGhlbiA4NC40ICUgb2YgdGhvc2Ugc3VydmV5ZWQgaGFkIGFuIGFjdGl2ZSBlbnJvbGxtZW50IGFzIHRoZWlyIGxhc3QgcmVjb3JkDQoNCmlmIHdlIGFzc3VtZSBhbGwgTkFzIGFyZSBhdCBsZWFzdCBMLCB0aGVuIDk2LjIgJSBvZiB0aG9zZSBzdXJ2ZXllZCBoYWQgYW4gYWN0aXZlIGVucm9sbG1lbnQgYXMgdGhlaXIgbGFzdCByZWNvcmQNCmBgYHtyfQ0KZGZfbnNjICU+JQ0KICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiUNCiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JQ0KICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSwNCiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpDQpgYGANCg0KRGlzdHJpYnV0aW9uIG9mIGVhY2ggc3R1ZGVudCdzIGZpcnN0IGVucm9sbG1lbnQgbW9udGg6DQoNCiogTWF5ID0gNA0KKiBKdW5lID0gMQ0KKiBBdWd1c3QgPSAxMjI3DQoqIFNlcHRlbWJlciA9IDc1DQoqIE9jdG9iZXIgPSAxDQoqIERlY2VtYmVyID0gMQ0KKiBKYW51YXJ5ID0gNQ0KDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBmaWx0ZXIoT3JkZXIgPT0gMSkgJT4lDQogIG11dGF0ZShtb250aCA9IG1vbnRoKEVucm9sbG1lbnRCZWdpbikpICU+JQ0KICBjb3VudChtb250aCkNCmBgYA0KDQpEaXN0cmlidXRpb24gb2YgZmlyc3QgZW5yb2xsbWVudHMNCg0KKiBGID0gODk4DQoqIFEgPSAxODkNCiogSCA9IDgwDQoqIEwgPSA0Ng0KKiBXID0gNTcNCiogQSA9IDENCiogTkEgPSAxMjkNCg0KTm90ZSB0aGF0IHNvbWUgb2YgdGhlc2Ugc3R1ZGVudHMgZW5yb2xsZWQgaW4gdGhlIHN1bW1lciwgc28gdGhlaXIgZmlyc3QtdGltZSBlbnJvbGxtZW50IG1heSBub3QgYmUgZnVsbC10aW1lLg0KDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBmaWx0ZXIoQ29sbGVnZVNlcXVlbmNlID09IDEpICU+JQ0KICBjb3VudChFbnJvbGxtZW50U3RhdHVzKQ0KYGBg</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5TQyBhbmFseXNpcyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCiMjIE5vdGVib29rIHNldHVwDQoNCiogRmlsZW5hbWU6IDA2LW5zYy1hbmFseXNpcy5SbWQNCiogUGF0aDogc3JjLzA2LW5zYy1hbmFseXNpcy5SbWQNCiogQXV0aG9yOiBTdGV2ZW4gTWFjYXBhZ2FsDQoqIERhdGUgY3JlYXRlZDogMjAyMi0wNi0yMg0KKiBEYXRlIG1vZGlmaWVkOiAyMDIyLTA3LTEyDQoqIFB1cnBvc2U6IFRoaXMgbm90ZWJvb2sgcHJlcHMgYW5kIGNvbmR1Y3RzIGFuYWx5c2lzIGZvciBOU0MgZGF0YSBmb3IgUXVlc3Rpb24gMy4NCiogSW5wdXRzOiBkZl9uc2MNCiogT3V0cHV0czogDQoqIE5vdGVzOg0KDQojIFN1cnZleSBhbmFseXNpcw0KDQpjb3VudGVkIDc3IHN0dWRlbnRzIHdobyB3ZXJlIHN1cnZleWVkIGluIDIwMjAtMjAyMSAoNS44ICUpDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgZ3JvdXBfYnkoU3R1ZGVudE51bWJlcikgJT4lDQogIG11dGF0ZShyb3dfbnVtYmVyID0gcm93X251bWJlcigpKSAlPiUNCiAgZmlsdGVyKHJvd19udW1iZXIgPT0gbWF4KHJvd19udW1iZXIsIG5hLnJtID0gVFJVRSkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KFN1cnZleWVkKQ0KYGBgDQoNCmRpc3RyaWJ1dGlvbiBvZiBlbnJvbGxtZW50IHN0YXR1c2VzOg0KDQoqIEYgPSA4NTINCiogUSA9IDE5NA0KKiBIID0gODcNCiogTCA9IDYxDQoqIFcgPSA3Mw0KKiBBID0gMg0KKiBOQSA9IDEzMQ0KYGBge3J9DQpkZl9uc2MgJT4lDQogIGdyb3VwX2J5KFN0dWRlbnROdW1iZXIpICU+JQ0KICBtdXRhdGUocm93X251bWJlciA9IHJvd19udW1iZXIoKSkgJT4lDQogIGZpbHRlcihyb3dfbnVtYmVyID09IG1heChyb3dfbnVtYmVyLCBuYS5ybSA9IFRSVUUpKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBjb3VudChFbnJvbGxtZW50U3RhdHVzKQ0KYGBgDQoNCg0KZGlzdHJpYnV0aW9uIG9mIGVucm9sbG1lbnQgYW1vbmcgc3VydmV5IHRha2VyczoNCg0KKiBGID0gNTENCiogUSA9IDExDQoqIEggPSAyDQoqIEwgPSAxDQoqIFcgPSAzDQoqIE5BID0gOQ0KDQppZiB3ZSBhc3N1bWUgYWxsIE5BcyBhcmUgVywgdGhlbiA4NC40ICUgb2YgdGhvc2Ugc3VydmV5ZWQgaGFkIGFuIGFjdGl2ZSBlbnJvbGxtZW50IGFzIHRoZWlyIGxhc3QgcmVjb3JkDQoNCmlmIHdlIGFzc3VtZSBhbGwgTkFzIGFyZSBhdCBsZWFzdCBMLCB0aGVuIDk2LjIgJSBvZiB0aG9zZSBzdXJ2ZXllZCBoYWQgYW4gYWN0aXZlIGVucm9sbG1lbnQgYXMgdGhlaXIgbGFzdCByZWNvcmQNCmBgYHtyfQ0KZGZfbnNjICU+JQ0KICBncm91cF9ieShTdHVkZW50TnVtYmVyKSAlPiUNCiAgbXV0YXRlKHJvd19udW1iZXIgPSByb3dfbnVtYmVyKCkpICU+JQ0KICBmaWx0ZXIocm93X251bWJlciA9PSBtYXgocm93X251bWJlciwgbmEucm0gPSBUUlVFKSwNCiAgICAgICAgIFN1cnZleWVkID09IDEpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIGNvdW50KEVucm9sbG1lbnRTdGF0dXMpDQpgYGANCg0KRGlzdHJpYnV0aW9uIG9mIGVhY2ggc3R1ZGVudCdzIGZpcnN0IGVucm9sbG1lbnQgbW9udGg6DQoNCiogTWF5ID0gNA0KKiBKdW5lID0gMQ0KKiBBdWd1c3QgPSAxMjI3DQoqIFNlcHRlbWJlciA9IDc1DQoqIE9jdG9iZXIgPSAxDQoqIERlY2VtYmVyID0gMQ0KKiBKYW51YXJ5ID0gNQ0KDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBmaWx0ZXIoT3JkZXIgPT0gMSkgJT4lDQogIG11dGF0ZShtb250aCA9IG1vbnRoKEVucm9sbG1lbnRCZWdpbikpICU+JQ0KICBjb3VudChtb250aCkNCmBgYA0KDQpEaXN0cmlidXRpb24gb2YgZmlyc3QgZW5yb2xsbWVudHMNCg0KKiBGID0gODk4DQoqIFEgPSAxODkNCiogSCA9IDgwDQoqIEwgPSA0Ng0KKiBXID0gNTcNCiogQSA9IDENCiogTkEgPSAxMjkNCg0KTm90ZSB0aGF0IHNvbWUgb2YgdGhlc2Ugc3R1ZGVudHMgZW5yb2xsZWQgaW4gdGhlIHN1bW1lciwgc28gdGhlaXIgZmlyc3QtdGltZSBlbnJvbGxtZW50IG1heSBub3QgYmUgZnVsbC10aW1lLg0KDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBmaWx0ZXIoQ29sbGVnZVNlcXVlbmNlID09IDEpICU+JQ0KICBjb3VudChFbnJvbGxtZW50U3RhdHVzKQ0KYGBgDQoNCg0KIyMgTWF0cmljdWxhdGlvbiBhY2NvcmRpbmcgdG8gQ2FtcCBSaW8NCg0KVGhlcmUgd2VyZSA0MzUgMjAyMSBzZW5pb3JzIHdobyBhdHRlbmRlZCBDYW1wIFJpbyBhbmQgOTMzIHdobyBkaWQgbm90Lg0KDQpgYGB7cn0NCmRmX25zYyAlPiUNCiAgZmlsdGVyKHllYXIoRW5yb2xsbWVudEVuZCkgPT0gMjAyMSwNCiAgICAgICAgIG1vbnRoKEVucm9sbG1lbnRFbmQpID09IG1heChtb250aChFbnJvbGxtZW50RW5kKSkpICU+JQ0KICBncm91cF9ieShBdHRlbmRlZCkgJT4lDQogIHN1bW1hcml6ZShuID0gbigpKQ0KYGBgDQoNCklmIHdlIGFnZ3JlZ2F0ZSBhbGwgZW5yb2xsbWVudCB3aXRoIHN0YXR1cyBhdCBsZWFzdCAiTCIgYW5kIHJlbW92ZSBhbGwgTkEgZW5yb2xsbWVudHMsIHRoZW4gd2UgZ2V0IHRoZXNlIGRpc3RyaWJ1dGlvbnM6DQoNCioqRGlkIE5vdCBBdHRlbmQqKg0KDQoqIEFib3ZlICJMIiA9IDg1Ny84OTEgPSA5Ni4yJQ0KKiAiVyIgb3IgIkEiID0gMzQvODkxID0gMy44JQ0KDQoqKkF0dGVuZGVkKioNCg0KKiBBYm92ZSAiTCIgPSA5MDkvOTMxID0gOTcuNiUNCiogIlciIG9yICJBIiA9IDIyLzkzMSA9IDIuNCUNCg0KYGBge3J9DQp0YWJsZV9jcl9tYXRyaWNfbG9uZyA8LSBkZl9uc2MgJT4lDQogIGZpbHRlcih5ZWFyKEVucm9sbG1lbnRFbmQpID09IDIwMjEsDQogICAgICAgICBtb250aChFbnJvbGxtZW50RW5kKSA9PSBtYXgobW9udGgoRW5yb2xsbWVudEVuZCkpKSAlPiUNCiAgZ3JvdXBfYnkoQXR0ZW5kZWQsIEVucm9sbG1lbnRTdGF0dXMpICU+JQ0KICBzdW1tYXJpemUobiA9IG4oKSkNCg0KdGFibGVfY3JfbWF0cmljX3dpZGUgPC0gdGFibGVfY3JfbWF0cmljX2xvbmcgJT4lDQogIG11dGF0ZShFbnJvbGxtZW50U3RhdHVzID0gZmN0X2NvbGxhcHNlKEVucm9sbG1lbnRTdGF0dXMsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNvbWVDb2xsZWdlID0gYygiRiIsICJRIiwgIkgiLCAiTCIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBXaXRoZHJldyA9IGMoIlciLCAiQSIpKSkgJT4lDQogIGdyb3VwX2J5KEF0dGVuZGVkLCBFbnJvbGxtZW50U3RhdHVzKSAlPiUNCiAgc3VtbWFyaXplKG4gPSBzdW0obikpICU+JQ0KICBmaWx0ZXIoIWlzLm5hKEVucm9sbG1lbnRTdGF0dXMpKSAlPiUNCiAgcGl2b3Rfd2lkZXIobmFtZXNfZnJvbSA9IEVucm9sbG1lbnRTdGF0dXMsDQogICAgICAgICAgICAgIHZhbHVlc19mcm9tID0gbikNCmBgYA0KDQpOb3csIHdlIHdpbGwgY29uZHVjdCBhIGNoaS1zcXVhcmUgdGVzdCBvZiBpbmRlcGVuZGVuY2UuDQoNCiogSDA6IENhbXAgUmlvIGF0dGVuZGFuY2UgYW5kIGNvbGxlZ2UgbWF0cmljdWxhdGlvbiBhcmUgaW5kZXBlbmRlbnQuDQoqIEhBOiBOb3QuDQoNCmBgYHtyfQ0KY2hpc3FfdGVzdF9tYXRyaWMgPC0gdGFibGVfY3JfbWF0cmljX3dpZGUgJT4lDQogIGNvbHVtbl90b19yb3duYW1lcyh2YXIgPSAiQXR0ZW5kZWQiKSAlPiUNCiAgYXMubWF0cml4KCkgJT4lDQogIGNoaXNxLnRlc3QoKQ0KDQpjaGlzcV9zdGF0X21hdHJpYyA8LSBjaGlzcV90ZXN0X21hdHJpYyRzdGF0aXN0aWMNCnB2YWxfbWF0cmljIDwtIGNoaXNxX3Rlc3RfbWF0cmljJHAudmFsdWUNCmBgYA0KDQpUaGUgY2hpLXNxdWFyZSBzdGF0IG9mIGByIGNoaXNxX3N0YXRfbWF0cmljYCB3aXRoIGRmID0gMSwgaGFzIGEgcC12YWx1ZSBvZiBgciBwdmFsX21hdHJpY2AsIHdoaWNoIGlzIGdyZWF0ZXIgdGhhbiAwLjA1LiBXZSBmYWlsIHRvIHJlamVjdCB0aGUgbnVsbCBhbmQgY29uY2x1ZGUgdGhlcmUgaXMgbm90IGVub3VnaCBldmlkZW5jZSB0byBzdWdnZXN0IENhbXAgUmlvIGF0dGVuZGFuY2UgYW5kIGNvbGxlZ2UgbWF0cmljdWxhdGlvbiBhcmUgZGVwZW5kZW50Lg0K</div>
 
 
 

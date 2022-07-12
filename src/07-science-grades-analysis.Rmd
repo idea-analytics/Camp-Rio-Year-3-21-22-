@@ -9,7 +9,7 @@ output: html_notebook
 * Path: src/07-science-grades-analysis.Rmd
 * Author: Steven Macapagal
 * Date created: 2022-07-11
-* Date modified: 2022-07-11
+* Date modified: 2022-07-12
 * Purpose: This notebook preps and conducts analysis for science course grades analysis for Question 3.
 * Inputs: df_science_grades_attendees, df_science_grades_survey_takers
 * Outputs: 
@@ -53,7 +53,7 @@ grade_i = b_1 * grade_level_id_i + b_2 * dosage_i + b_3 * (grade_level_id * dosa
 
 First, check the distribution of grades by grade level and dosage. We will test for Normality of each grade level.
 
-```{r}
+```{r shapiro_test}
 shapiro_test_science <- list()
 p_values_shapiro_test_science <- c()
 
@@ -74,7 +74,7 @@ Because the p-values are so small, we reject the null; it appears the distributi
 
 Given that the distributions are non-Normal, we will proceed with a Mann-Whitney U test to test the difference in medians. First, the boxplots of science grades by dosage group reveals that 9th and 10th graders with higher doses appeared to have higher science grades on average, but the opposite is true for 11th and 12th graders.
 
-```{r}
+```{r boxplot_science_grades}
 df_science_grades_survey_takers %>%
   filter(GradeLevelID.x %in% c(9, 10, 11, 12)) %>%
   ggplot() +
@@ -89,7 +89,7 @@ From the Mann-Whitney U test, we will use
 * H0: Students with a higher dose of Camp Rio have similar science grades to those with a lower dose.
 * HA: Students with a higher dose of Camp Rio have higher science grades to those with a lower dose.
 
-```{r}
+```{r mann_whitney_test, warning=FALSE}
 mann_whitney_science <- list()
 p_values_science <- c()
 for (i in 1:4) {
