@@ -1,0 +1,109 @@
+---
+title: "Science Course Grades Analysis"
+output: html_notebook
+---
+
+## Notebook setup
+
+* Filename: 07-science-grades-analysis.Rmd
+* Path: src/07-science-grades-analysis.Rmd
+* Author: Steven Macapagal
+* Date created: 2022-07-11
+* Date modified: 2022-07-12
+* Purpose: This notebook preps and conducts analysis for science course grades analysis for Question 3.
+* Inputs: df_science_grades_attendees, df_science_grades_survey_takers
+* Outputs: 
+* Notes:
+
+# Overall distribution of grades for Camp Rio attendees
+
+```{r}
+df_science_grades_attendees %>%
+  filter(GradeLevelID.x %in% c(9, 10, 11, 12)) %>%
+  group_by(GradeLevelID.x) %>%
+  summarize(n = n(),
+            mean_course_grade = mean(PercentageGrade, na.rm = TRUE))
+```
+
+# Distribution of survey takers
+
+## All survey takers
+
+```{r}
+df_science_grades_survey_takers %>%
+  filter(GradeLevelID.x %in% c(9, 10, 11, 12)) %>%
+  group_by(GradeLevelID.x) %>%
+  summarize(n = n(),
+            mean_grade = mean(PercentageGrade, na.rm = TRUE))
+```
+
+## All survey takers by dosage
+
+```{r}
+df_science_grades_survey_takers %>%
+  filter(GradeLevelID.x %in% c(9, 10, 11, 12)) %>%
+  group_by(GradeLevelID.x, CRDoseGroup) %>%
+  summarize(n = n(),
+            mean_grade = mean(PercentageGrade, na.rm = TRUE))
+```
+
+## Tests on dosage
+
+grade_i = b_1 * grade_level_id_i + b_2 * dosage_i + b_3 * (grade_level_id * dosage)_i 
+
+First, check the distribution of grades by grade level and dosage. We will test for Normality of each grade level.
+
+```{r shapiro_test}
+shapiro_test_science <- list()
+p_values_shapiro_test_science <- c()
+
+for (i in 1:4) {
+  
+  shapiro_test_science[[i]] <- shapiro.test(df_science_grades_survey_takers$PercentageGrade[df_science_grades_survey_takers$GradeLevelID.x == i + 8])
+  p_values_shapiro_test_science[[i]] <- shapiro_test_science[[i]]$p.value
+  
+}
+
+(p_values_shapiro_test_science <- unlist(p_values_shapiro_test_science))
+```
+
+* H0: The distribution of grades by grade level is Normal.
+* Ha: Not.
+
+Because the p-values are so small, we reject the null; it appears the distribution of science grades is non-Normal.
+
+Given that the distributions are non-Normal, we will proceed with a Mann-Whitney U test to test the difference in medians. First, the boxplots of science grades by dosage group reveals that 9th and 10th graders with higher doses appeared to have higher science grades on average, but the opposite is true for 11th and 12th graders.
+
+```{r boxplot_science_grades}
+df_science_grades_survey_takers %>%
+  filter(GradeLevelID.x %in% c(9, 10, 11, 12)) %>%
+  ggplot() +
+  geom_boxplot(aes(x = CRDoseGroup,
+                   y = PercentageGrade)) +
+  facet_wrap( ~ GradeLevelID.x,
+             scales = "free")
+```
+
+From the Mann-Whitney U test, we will use
+
+* H0: Students with a higher dose of Camp Rio have similar science grades to those with a lower dose.
+* HA: Students with a higher dose of Camp Rio have higher science grades to those with a lower dose.
+
+```{r mann_whitney_test, warning=FALSE}
+mann_whitney_science <- list()
+p_values_science <- c()
+for (i in 1:4) {
+  
+  mann_whitney_science[[i]] <- wilcox.test(PercentageGrade ~ CRDoseGroup,
+            data = df_science_grades_survey_takers,
+            subset = GradeLevelID.x == i+8,
+            alternative = "less")
+  p_values_science[[i]] <- mann_whitney_science[[i]]$p.value
+  
+}
+
+(p_values_science <- unlist(p_values_science))
+
+```
+
+The p-values basically confirm what we saw visually with the boxplots above. Reject null for 9th, 10th; fail to reject for 11th, 12th.
