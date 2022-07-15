@@ -28,8 +28,7 @@ df_staar_science <- raw_staar %>%
   filter(BestScoreFlag == 1) %>%
   select(-BestScoreFlag,
          -Best_score,
-         -AdminDate,
-         -ScaleScore) %>%
+         -AdminDate) %>%
   relocate(StudentNumber) %>%
   distinct()
 

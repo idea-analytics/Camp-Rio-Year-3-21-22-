@@ -48,14 +48,70 @@ df_gpa_survey_takers %>%
 ```
 
 ```{r}
-df_gpa_survey_takers %>%
+gpa_by_dosage <- df_gpa_survey_takers %>%
   filter(CumulativeGPA != 0) %>%
   group_by(GradeLevelID.x,
            CRDoseGroup) %>%
   summarize(n = n(),
             MeanGPA = mean(CumulativeGPA, na.rm=TRUE))
+
+gpa_by_dosage
 ```
 
 
-
 # Tests on dosage
+
+```{r}
+df_gpa_survey_takers %>%
+  filter(CumulativeGPA != 0) %>%
+  ggplot() +
+  geom_histogram(aes(x = CumulativeGPA)) +
+  facet_grid(CRDoseGroup ~ GradeLevelID.x)
+```
+
+The histograms don't appear to be Normally distributed, so we will use a Shapiro-Wilk test to test for Normality.
+
+```{r shapiro_gpa}
+shapiro_gpa <- list()
+pval_shapiro_gpa <- c()
+
+for (i in 2:4) {
+  
+  shapiro_gpa[[i]] <- df_gpa_survey_takers %>%
+    filter(CumulativeGPA != 0,
+           GradeLevelID.x == i + 8) %>%
+    pull(CumulativeGPA) %>%
+    shapiro.test()
+  
+  pval_shapiro_gpa[i] <- unlist(shapiro_gpa[[i]]$p.value)
+  
+}
+
+print(pval_shapiro_gpa)
+```
+
+The 12th grade p-value is above 0.05 (0.39 > 0.05), so the 12th grade distribution seems to be Normally distributed, while the 10th and 11th grade distributions (0.07, 0.02) appear to be weakly and non-Normal, respectively.
+
+To be safe, we'll use non-parametric tests to compare the GPA distributions by dosage.
+
+H0: Students with a higher dosage have the same GPA as those with a lower dosage.
+HA: Students with a higher dosage have a higher GPA as those with a lower dosage.
+
+```{r mann_whitney_gpa, warning=FALSE}
+mann_whitney_gpa <- list()
+pval_mann_whitney_gpa <- c()
+
+for (i in 2:4) {
+  
+  mann_whitney_gpa[[i]] <- wilcox.test(CumulativeGPA ~ CRDoseGroup,
+                                       data = df_gpa_survey_takers %>%
+                                         filter(CumulativeGPA != 0),
+                                       subset = GradeLevelID.x == i+8,
+                                       alternative = "less")
+  pval_mann_whitney_gpa[i] <- unlist(mann_whitney_gpa[[i]]$p.value)
+  
+}
+
+print(pval_mann_whitney_gpa)
+```
+
