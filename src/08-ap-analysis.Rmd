@@ -1,0 +1,45 @@
+---
+title: "AP Science Analysis"
+output: html_notebook
+---
+
+## Notebook setup
+
+* Filename: 08-ap-analysis.Rmd
+* Path: src/08-ap-analysis.Rmd
+* Author: Steven Macapagal
+* Date created: 2022-07-19
+* Date modified: 2022-07-19
+* Purpose: This notebook preps and conducts analysis for AP scores for Question 3.
+* Inputs: df_ap_attendees, df_ap_survey_takers
+* Outputs: 
+* Notes:
+
+
+```{r}
+df_ap_survey_takers %>% 
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry")) %>%
+  group_by(ExamName) %>% 
+  count(AP_Result) %>% 
+  mutate(Percent = scales::label_percent(accuracy = 0.1)(n / sum(n)))
+```
+
+```{r}
+df_ap_survey_takers %>%   
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry"), 
+         AdminYear == "22") %>% 
+  group_by(ExamName) %>%
+  summarize(MeanAPScore = mean(AP_Result, na.rm = TRUE),
+            SDAPScore = sd(AP_Result, na.rm = TRUE))
+```
+
+```{r}
+df_ap_survey_takers %>%   
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry"), 
+         AdminYear == "22") %>% 
+  group_by(CRDoseGroup) %>%
+  summarize(MeanAPScore = mean(AP_Result, na.rm = TRUE),
+            SDAPScore = sd(AP_Result, na.rm = TRUE),
+            n = n())
+```
+
