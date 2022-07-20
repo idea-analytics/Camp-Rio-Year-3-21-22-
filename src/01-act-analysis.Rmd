@@ -11,7 +11,7 @@ output: html_document
 * Path: ./src/01-act-analysis.Rmd
 * Author: Steven Macapagal
 * Date created: 2022-06-06
-* Date modified: 2022-06-06
+* Date modified: 2022-07-12
 * Purpose: This notebook preps and conducts analysis ACT data for Question 3.
 * Inputs: df_act
 * Outputs: 
@@ -106,3 +106,55 @@ df_act_survey_takers %>%
 
 ```
 
+Next, test for homogeneity of variances.
+
+```{r homoskedasticity, warning=FALSE}
+df_act_survey_takers %>%  
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE),
+         GradeLevelID == 11) %>%
+  ungroup() %>%
+  bartlett.test(Composite ~ CRDoseGroup, data = .)
+
+df_act_survey_takers %>%  
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE),
+         GradeLevelID == 12) %>%
+  ungroup() %>%
+  bartlett.test(Composite ~ CRDoseGroup, data = .)
+```
+
+The p-value for 11th grade is 0.2208 and for 12th grade is 0.6013. Thus, it seems the variances are the same between Camp Rio groups per grade level.
+
+Therefore, we will use a pooled t-test.
+
+* H0: There is no difference in ACT score between small dosage and large dosage Camp Rio groups.
+* Ha: There is a difference.
+
+```{r t_test, warning=FALSE}
+df_act_survey_takers %>%  
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE),
+         GradeLevelID == 11) %>%
+  ungroup() %>%
+  t.test(Composite ~ CRDoseGroup, data = .,
+         var.equal = TRUE)
+
+df_act_survey_takers %>%  
+  filter(GradeLevelID %in% c(10, 11, 12)) %>%
+  group_by(StudentNumber) %>%
+  filter(GradeLevelTaken == max(GradeLevelTaken, na.rm = TRUE),
+         Science == max(Science, na.rm = TRUE),
+         GradeLevelID == 12) %>%
+  ungroup() %>%
+  t.test(Composite ~ CRDoseGroup, data = .,
+         var.equal = TRUE)
+```
+
+Given that the p-value is 0.00169 and 0.01049 for 11th and 12th grade, respectively, it appears the ACT scores are different per group.

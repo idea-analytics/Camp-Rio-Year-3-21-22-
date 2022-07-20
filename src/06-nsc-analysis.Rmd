@@ -9,7 +9,7 @@ output: html_notebook
 * Path: src/06-nsc-analysis.Rmd
 * Author: Steven Macapagal
 * Date created: 2022-06-22
-* Date modified: 2022-07-05
+* Date modified: 2022-07-12
 * Purpose: This notebook preps and conducts analysis for NSC data for Question 3.
 * Inputs: df_nsc
 * Outputs: 
@@ -104,3 +104,63 @@ df_nsc %>%
   filter(CollegeSequence == 1) %>%
   count(EnrollmentStatus)
 ```
+
+
+## Matriculation according to Camp Rio
+
+There were 435 2021 seniors who attended Camp Rio and 933 who did not.
+
+```{r}
+df_nsc %>%
+  filter(year(EnrollmentEnd) == 2021,
+         month(EnrollmentEnd) == max(month(EnrollmentEnd))) %>%
+  group_by(Attended) %>%
+  summarize(n = n())
+```
+
+If we aggregate all enrollment with status at least "L" and remove all NA enrollments, then we get these distributions:
+
+**Did Not Attend**
+
+* Above "L" = 857/891 = 96.2%
+* "W" or "A" = 34/891 = 3.8%
+
+**Attended**
+
+* Above "L" = 909/931 = 97.6%
+* "W" or "A" = 22/931 = 2.4%
+
+```{r}
+table_cr_matric_long <- df_nsc %>%
+  filter(year(EnrollmentEnd) == 2021,
+         month(EnrollmentEnd) == max(month(EnrollmentEnd))) %>%
+  group_by(Attended, EnrollmentStatus) %>%
+  summarize(n = n())
+
+table_cr_matric_wide <- table_cr_matric_long %>%
+  mutate(EnrollmentStatus = fct_collapse(EnrollmentStatus,
+                                         SomeCollege = c("F", "Q", "H", "L"),
+                                         Withdrew = c("W", "A"))) %>%
+  group_by(Attended, EnrollmentStatus) %>%
+  summarize(n = sum(n)) %>%
+  filter(!is.na(EnrollmentStatus)) %>%
+  pivot_wider(names_from = EnrollmentStatus,
+              values_from = n)
+```
+
+Now, we will conduct a chi-square test of independence.
+
+* H0: Camp Rio attendance and college matriculation are independent.
+* HA: Not.
+
+```{r}
+chisq_test_matric <- table_cr_matric_wide %>%
+  column_to_rownames(var = "Attended") %>%
+  as.matrix() %>%
+  chisq.test()
+
+chisq_stat_matric <- chisq_test_matric$statistic
+pval_matric <- chisq_test_matric$p.value
+```
+
+The chi-square stat of `r chisq_stat_matric` with df = 1, has a p-value of `r pval_matric`, which is greater than 0.05. We fail to reject the null and conclude there is not enough evidence to suggest Camp Rio attendance and college matriculation are dependent.
