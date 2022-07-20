@@ -3,7 +3,7 @@
 # Path: munge/04-clean-nsc-data.R                                              #
 # Author: Steven Macapagal                                                     #
 # Date created: 2022-06-20                                                     #
-# Date modified: 2022-07-05                                                    #
+# Date modified: 2022-07-12                                                    #
 # Purpose: This script cleans NSC data.                                        #
 # Inputs:  raw_nsc, get_students()                                             #
 # Outputs: df_nsc                                                              #
@@ -57,7 +57,16 @@ df_nsc <- raw_nsc %>%
   mutate(SchoolName = if_else(SchoolName == "IDEA College Preparatory",
                               "IDEA Donna College Preparatory",
                               SchoolName),
-         Surveyed = replace_na(Surveyed, 0)) %>%
+         Surveyed = replace_na(Surveyed, 0),
+         Attended = if_else(Surveyed == 1 | 
+                              SchoolName %in% c("IDEA Edinburg College Preparatory",
+                                                "IDEA McAllen College Preparatory",
+                                                "IDEA San Benito College Prep",
+                                                "IDEA Toros College Preparatory",
+                                                "IDEA Weslaco College Preparatory",
+                                                "IDEA Weslaco Pike College Prep"),
+                            "Attended Camp Rio",
+                            "Did Not Attend Camp Rio")) %>%
   relocate(Region,
            SchoolName,
            StudentNumber,
