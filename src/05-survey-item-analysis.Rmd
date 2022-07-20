@@ -5,7 +5,7 @@ date: "6/23/2022"
 output: html_document
 ---
 
-Create student level CNI and SLSS composite scores (i.e., average across all CNI or SLSS scores grouped by student)
+Academy - Create student level CNI and SLSS composite scores (i.e., average across all CNI or SLSS scores grouped by student)
 ```{r}
 
 ac_survey_composites <- ac_survey_clean%>%
@@ -13,32 +13,94 @@ ac_survey_composites <- ac_survey_clean%>%
   mutate(CNI_Std_Mean = mean(c_across(starts_with("CNI")), na.rm = T),
         SLSS_Std_Mean = mean(c_across(starts_with("SLSS")), na.rm = T)) %>%
   ungroup()
+#write_csv("~/Github/Camp-Rio-Year-3-21-22-/data/AC_survey_composites.csv")
+#write.csv(ac_survey_composites, "AC_survey_composites.csv")
 
 ```
 
-Create overall mean CNI, SLSS
+Academy - Create overall mean CNI, SLSS
 ```{r}
 #mutate will keep all collumns, summarize will create a new df with only the new summary columns
 ac_survey_mean <- ac_survey_composites %>%
-  summarize(CNI_Mean = mean(CNI_Std_Mean),
-         SLSS_Mean = mean(SLSS_Std_Mean))
+  summarize(CNI_all_Mean = mean(CNI_Std_Mean),
+         SLSS_all_Mean = mean(SLSS_Std_Mean))
+
+#write.csv(ac_survey_mean, "~/Github/Camp-Rio-Year-3-21-22-/data/ac_survey_overall_mean.csv")
+
 ```
 
-Create CNI and SLSS mean by grade level
+Academy - Create CNI and SLSS mean by grade level
 ```{r}
 
 ac_survey_grdlvl_mean <- ac_survey_composites %>%
   group_by(GradeLevel) %>%
-  summarize(CNI_Mean = mean(CNI_Std_Mean),
-         SLSS_Mean = mean(SLSS_Std_Mean))
+  summarize(CNI_GRD_Mean = mean(CNI_Std_Mean),
+         SLSS_GRD_Mean = mean(SLSS_Std_Mean))
+
+#write.csv(ac_survey_grdlvl_mean, "~/Github/Camp-Rio-Year-3-21-22-/data/ac_survey_by_grdlvl.csv")
 ```
 
-Create CNI and SLSS mean by dose level
+
+Academy - Create CNI and SLSS mean by dose level
 ```{r}
 ac_survey_dose_mean <- ac_survey_composites %>%
-  group_by(CRDose) %>%
-  summarize(CNI_Mean = mean(CNI_Std_Mean),
-         SLSS_Mean = mean(SLSS_Std_Mean))
+  group_by(Dose_groups) %>%
+  summarize(CNI_dose_Mean = mean(CNI_Std_Mean),
+         SLSS_dose_Mean = mean(SLSS_Std_Mean))
+
+write.csv(ac_survey_dose_mean, "~/Github/Camp-Rio-Year-3-21-22-/data/ac_survey_mean_by_dosegroup.csv")
+```
+
+College Prep - Create student level NR6 and SLSS composite scores (i.e., average across all CNI or SLSS scores grouped by student)
+```{r}
+CP_survey_composites <- CP_survey_clean%>%
+  rowwise()%>%
+  mutate(NR6_Std_Mean = mean(c_across(starts_with("NR6")), na.rm = T),
+        SLSS_Std_Mean = mean(c_across(starts_with("SLSS")), na.rm = T)) %>%
+  ungroup()
+write.csv(CP_survey_composites, "~/Github/Camp-Rio-Year-3-21-22-/data/CP_survey_composites.csv")
+```
+
+College Prep - Create overall mean NR6, SLSS
+```{r}
+#mutate will keep all collumns, summarize will create a new df with only the new summary columns
+CP_survey_mean <- CP_survey_composites %>%
+  summarize(NR6_all_Mean = mean(NR6_Std_Mean),
+         SLSS_all_Mean = mean(SLSS_Std_Mean))
+#write.csv(CP_survey_mean, "~/Github/Camp-Rio-Year-3-21-22-/data/CP_survey_mean.csv")
+```
+
+College Prep - Create CNI and SLSS mean by grade level
+```{r}
+
+CP_survey_grdlvl_mean <- CP_survey_composites %>%
+  group_by(GradeLevel) %>%
+  summarize(NR6_GRD_Mean = mean(NR6_Std_Mean),
+         SLSS_GRD_Mean = mean(SLSS_Std_Mean))
+
+#write.csv(CP_survey_grdlvl_mean, "~/Github/Camp-Rio-Year-3-21-22-/data/CP_survey_mean_by_grdlvl.csv")
+```
+
+College Prep - CNI & SLSS mean by grade group
+```{r}
+CP_survey_grdgroup_mean <- CP_survey_composites %>%
+  group_by(Grd_groups) %>%
+  summarize(NR6_GRD_Mean = mean(NR6_Std_Mean),
+         SLSS_GRD_Mean = mean(SLSS_Std_Mean))
+
+#write.csv(CP_survey_grdgroup_mean, "~/Github/Camp-Rio-Year-3-21-22-/data/CP_survey_mean_by_grdgroup.csv")
+
+```
+
+
+College Prep - Create NR6 and SLSS mean by dose level
+```{r}
+CP_survey_Doselevel_mean <- CP_survey_composites %>%
+  group_by(Dose_levels) %>%
+  summarize(NR6_GRD_Mean = mean(NR6_Std_Mean),
+         SLSS_GRD_Mean = mean(SLSS_Std_Mean))
+
+write.csv(CP_survey_grdgroup_mean, "~/Github/Camp-Rio-Year-3-21-22-/data/CP_survey_mean_by_doselevel.csv")
 ```
 
 summary

@@ -41,9 +41,10 @@ ac_survey_clean <- xlsx_survey_ac %>%
          TimeInNature = "In the past week, including Saturday and Sunday, how many hours did you spend outdoors in nature (in a park, a forest, a backyard or playground with trees, or similar place)?",
          StudentName = "Please enter your first and last name.") %>%  
   mutate(SLSS_3 = recode(SLSS_3b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
-         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'))  %>%
-  select(StartTime, CompletionTime, StudentNumber, SchoolName, GradeLevel, CRDose, CNI_1, CNI_2, CNI_3, CNI_4, CNI_5, CNI_6, CNI_7, CNI_8, CNI_9, CNI_10, CNI_11, CNI_12, CNI_13, CNI_14, CNI_15, CNI_16, SLSS_1, SLSS_2, SLSS_3, SLSS_4, SLSS_5, SLSS_6, CR_1, CR_2, CR_3, CR_4, CR_5, CR_6, CR_7, CR_8, TimeInNature, StudentName)
-
+         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
+         Dose_groups = if_else(CRDose >=5,5,CRDose))%>%
+  select(StartTime, CompletionTime, StudentNumber, SchoolName, GradeLevel, CRDose, Dose_groups, CNI_1, CNI_2, CNI_3, CNI_4, CNI_5, CNI_6, CNI_7, CNI_8, CNI_9, CNI_10, CNI_11, CNI_12, CNI_13, CNI_14, CNI_15, CNI_16, SLSS_1, SLSS_2, SLSS_3, SLSS_4, SLSS_5, SLSS_6, CR_1, CR_2, CR_3, CR_4, CR_5, CR_6, CR_7, CR_8, TimeInNature, StudentName)
+write.csv(ac_survey_clean, '~/Github/Camp-Rio-Year-3-21-22-/data/ac_survey_clean_df.csv')
 
 
 CP_survey_clean <- xlsx_survey_cp %>%
@@ -73,7 +74,7 @@ CP_survey_clean <- xlsx_survey_cp %>%
          CR_3 = "What are some of the land stewardship behaviors your currently practice?",
          CR_4 = "How often do you try to practice land stewardship?",
          CR_5 = "How many Science courses are you currently taking?",
-         Cr_6 = "How confident are you that you can complete all the work that is assigned in your Science class or classes?",
+         CR_6 = "How confident are you that you can complete all the work that is assigned in your Science class or classes?",
          CR_7 = "When complicated ideas are presented in your Science class, how confident are you that you can understand them?",
          CR_8 = "How confident are you that you can learn all the material presented in your Science class?",
          CR_9 = "How confident are you that you can do the hardest work that is assigned in your Science class?",
@@ -84,5 +85,9 @@ CP_survey_clean <- xlsx_survey_cp %>%
          LastName = "Please enter your name.2") %>%
   
   mutate(SLSS_3 = recode(SLSS_3b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
-         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'))%>%
-  select(StartTime,CompletionTime,StudentNumber,SchoolName,GradeLevel,CRDose,NR6_1,NR6_2,NR6_3,NR6_4,NR6_5,NR6_6,SLSS_1,SLSS_2,SLSS_3,SLSS_4,SLSS_5,SLSS_6,SLSS_7,CR_1,CR_2,CR_3,CR_4,CR_5,)
+         SLSS_4 = recode(SLSS_4b, '1=6; 2=5; 3=4; 4=3; 5=2; 6=1'),
+         Grd_groups = if_else(GradeLevel >=9, '9-12', '6-8'),
+         Dose_levels = if_else(CRDose >=5,5,CRDose),
+         TwoDose_grp = if_else(CRDose <=2, '0 to 2', 'More than 2'))%>%
+  select(StartTime,CompletionTime,StudentNumber,SchoolName,GradeLevel,Grd_groups,CRDose,Dose_levels,TwoDose_grp,NR6_1,NR6_2,NR6_3,NR6_4,NR6_5,NR6_6,SLSS_1,SLSS_2,SLSS_3,SLSS_4,SLSS_5,SLSS_6,SLSS_7,CR_1,CR_2,CR_3,CR_4,CR_5,CR_6,CR_7,CR_8,CR_9,CR_10,TimeInNature,FirstName,LastName)
+write.csv(CP_survey_clean, '~/Github/Camp-Rio-Year-3-21-22-/data/CP_survey_clean_df.csv')
