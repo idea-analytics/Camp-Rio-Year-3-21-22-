@@ -17,6 +17,7 @@ library(lubridate)
 library(janitor)
 library(readxl)
 library(readr)
+library(here)
 ```
 
 Create a new connection with PROD1
@@ -80,7 +81,7 @@ schl_data <- get_table(.table_name = "Schools", .database_name = "PROD1", .schem
   collect()
   write.csv(schl_data,"School names_2022.csv")
 
-stdtable <- left_join(std_data, schl_data, by = "SchoolNumber")%>%
+stdtable <- left_join(stu_data, schl_data, by = "SchoolNumber")%>%
  # filter((SchoolShortName != "Robindale" & RISEcode == "1") &
   #       (SchoolShortName != "Mission" & RISEcode =="1") &
    #      (SchoolShortName != "San Juan CP" & GradeLevelID == "11" & RISEcode == "1"))%>%
@@ -126,7 +127,7 @@ Stu_demg <- stdtable %>%
 
 Bring in survey data from 3/27/2022 and merge with student data to get school enrolled information.
 ```{r}
-CRA_2022b <- read_xlsx("~/Camp-Rio-Year-3-21-22-/data/Camp RIO Survey_Academy_21-22.xlsx")%>%
+CRA_2022b <- read_xlsx(here("data", "Camp RIO Survey_Academy_21-22.xlsx"))%>%
   select(CompletionTime = 'Completion time',
           Name,
           Student_Number = 'Please enter your Student ID number.',
@@ -154,10 +155,10 @@ CRA_campus_name <- left_join(CRA_2022, Stu_demg, by=c("Last_Name"="LastName", "F
 select(-StudentNumber)
 
 CRA_AllStudents <- bind_rows(CRA_campus_ID, CRA_campus_name)
-write.csv(CRA_AllStudents, "data/Survey_files/CRA_SurveyParticipants_CleanID.csv")
+write.csv(CRA_AllStudents,here("data","CRA_SurveyParticipants_CleanID.csv"))
 
 
-CRCP_2022b <- read_xlsx("data/Survey_files/Camp RIO Survey_CollegePrep_21-22.xlsx")%>%
+CRCP_2022b <- read_xlsx(here("data", "Camp RIO Survey_CollegePrep_21-22.xlsx"))%>%
   select(CompletionTime = 'Completion time',
          Name,
          Student_Number = 'Please enter your Student ID number.',
@@ -178,7 +179,7 @@ CRCP_2022 <- CRCP_2022b %>%
 CRCP_campus_ID <- left_join(CRCP_2022, Stu_demg, by=c("Student_Number"="StudentNumber"))%>%
   filter(SchoolNumber != " ")%>%
   select(-FirstName, -MiddleInitial, -LastName)
-write_csv(CRCP_campus_ID, "data/Survey_files/CRCP_surveydata_and_correct_campus.csv")
+#write_csv(CRCP_campus_ID, "data/Survey_files/CRCP_surveydata_and_correct_campus.csv")
 
 CRCP_campus_name <- left_join(CRCP_2022, Stu_demg, by=c("Last_Name"="LastName", "First_Name"="FirstName", "Middle_Initial"="MiddleInitial"))%>%
   filter(SchoolNumber != " ")%>%
@@ -188,7 +189,7 @@ select(-StudentNumber)
  # mutate(StudentNumber = as.character(StudentNumber))
 
 CRCP_AllStudents <- bind_rows(CRCP_campus_ID, CRCP_campus_name)
-write.csv(CRA_AllStudents,"data/Survey_files/CRCP_SurveyParticipants_CleanID.csv")
+write.csv(CRA_AllStudents,here("data","CRCP_SurveyParticipants_CleanID.csv"))
 
 
 
