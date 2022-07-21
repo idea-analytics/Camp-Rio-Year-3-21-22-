@@ -230,17 +230,17 @@ pre code {
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgXG4gIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoXCJCaW9sb2d5XCIsIFwiRW52aXJvbm1lbnRhbCBTY2llbmNlXCIsIFwiQ2hlbWlzdHJ5XCIpKSAlPiVcbiAgZ3JvdXBfYnkoRXhhbU5hbWUpICU+JSBcbiAgY291bnQoQVBfUmVzdWx0KSAlPiUgXG4gIG11dGF0ZShQZXJjZW50ID0gc2NhbGVzOjpsYWJlbF9wZXJjZW50KGFjY3VyYWN5ID0gMC4xKShuIC8gc3VtKG4pKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgXG4gIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoXCJCaW9sb2d5XCIsIFwiRW52aXJvbm1lbnRhbCBTY2llbmNlXCIsIFwiQ2hlbWlzdHJ5XCIsIFwiUGh5c2ljcyAxXCIpKSAlPiVcbiAgZ3JvdXBfYnkoRXhhbU5hbWUpICU+JSBcbiAgY291bnQoQVBfUmVzdWx0KSAlPiUgXG4gIG11dGF0ZShQZXJjZW50ID0gc2NhbGVzOjpsYWJlbF9wZXJjZW50KGFjY3VyYWN5ID0gMC4xKShuIC8gc3VtKG4pKSlcbmBgYCJ9 -->
 <pre class="r"><code>df_ap_survey_takers %&gt;% 
-  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;, &quot;Chemistry&quot;)) %&gt;%
+  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;, &quot;Chemistry&quot;, &quot;Physics 1&quot;)) %&gt;%
   group_by(ExamName) %&gt;% 
   count(AP_Result) %&gt;% 
   mutate(Percent = scales::label_percent(accuracy = 0.1)(n / sum(n)))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjEwLCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjEwIHggNCJdLCJHcm91cHMiOlsiRXhhbU5hbWUgWzNdIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQnNWU3ZVL0NVQkMvUWl0UUk1S2d1dzZNdk5BaUtKTW9zaHFDQzV1cDVRbU41VDNTRnNYTlA5bkprWHB0MzJIVHhjVEZsMXp2N25jZnZhL3AzYXhyemt3QUtJTU9CcFFORk9GZ05MSHNuZzJnbDFEVDBGSkwrQmE5bWlqb1NBMGtVeGtxdDU3MDVlTDlMMnB0dE9Rckw0d0NBazdINHRVTHBGaHhFVG4rMllQcmNlSHlmekVDMUpNdXJ6OGhmVU5RdktwNEkrTmsvODF2ZUFMMGp0THBBWndqSFNaRFNjZWNVUXNwaVRUVXBMWEN0STErbC9WYXBOZ1dzL2VLbGJQb0ZodVFmR0IxT3F5emQrdGZzdTVQekVVdVpzQ3N2Wnh6d2x4WHJjSTFHSzd2aEtHcWpVQno3a1FPZXc2Y0ZTKzQxd0w1eGdUaW9XcS85SUdmT0k2L2lubkpxWkgybjRIVjhkWlozU2RaVmJhYnllT1VoeHMvb3RzVWRGNFRIcmk0UmhSM2hjd1Z1WTQ4S1RCM3Fhbm1tNjlkQ3dyQThVWWt0Y3piN25Jalh0cVcycG1XMjZHbU1KTDE3SmQ2ckZJWnRBQXVGcDZnNmczZmVlSytVdW80bUxSbHRnNDhRZjJZaUlZc2tuaU9oTGpTSnlUdERYYmZLQW5jTWIwREFBQT0ifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjExLCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjExIHggNCJdLCJHcm91cHMiOlsiRXhhbU5hbWUgWzRdIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQnNWU1MwL0NRQkJlb0JXb0VVblF4Q01lT0xLaDVhR2NSSkdyYWZEQ3pkU3l3c1oybDNTTHdzMmY3TVVyZGRydVl1bkZ4SXViVEdmbW05bXZPNC9wL2F4cnpBeUVVQWxwU0VjbEhVeDBOTFpOcTI4aHBCWEJLMENrR3VzTlpEWEEwRURxSU1jeVVMNmozT09MN1YvYzZuaEpmQ3JDUUFIbkUvWkdBODU4d2tMSGF6NjZsRENYL0dPd2FpKzNncnFpYVlKVGk4dSsrVVRKR1NHcEsxTFhVNjNpditXTnpnN3o0SndrYlVYb1V1cHkwdjlVV2lBeGd5NUhFR01YdVZIb2d5N3V0NVJqbWRqYU8yWW1vcGw0cU93anM5UEJuWDNhNEFwM2YrNzBNbmVHMk56Ym1TVGd1czV6SFM2TzducU9FUEtsQ2pUbVR1amdsOER4U1M2OUd2QjN6QUFYc2lIRkQvaEVVZlNWNTFWSjlhUWpLVmlaYkJ6L0lXYVZiTGYyMDVTSXRSZXFOV1pxRTIwU3VEQnhNSGM1NWpKZmhaUXo0QzQyWk1lemJ5OEVPZUIwemVLM3pOdnVjczFlMjcyNFBqa2hOZFdDbktpeXRmU1hXaVNwZE5WQ3doYVVxZGZybnZOTVBPblVvREZKeVhnVlVLYnFNUUFWT09Td3VRcHh1YWVRcERhMCt3WUl4MVhGNkFNQUFBPT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["ExamName"],"name":[1],"type":["chr"],"align":["left"]},{"label":["AP_Result"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["Percent"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Biology","2":"1","3":"33","4":"63.5%"},{"1":"Biology","2":"2","3":"11","4":"21.2%"},{"1":"Biology","2":"3","3":"7","4":"13.5%"},{"1":"Biology","2":"4","3":"1","4":"1.9%"},{"1":"Chemistry","2":"1","3":"1","4":"100.0%"},{"1":"Environmental Science","2":"1","3":"37","4":"67.3%"},{"1":"Environmental Science","2":"2","3":"8","4":"14.5%"},{"1":"Environmental Science","2":"3","3":"5","4":"9.1%"},{"1":"Environmental Science","2":"4","3":"4","4":"7.3%"},{"1":"Environmental Science","2":"5","3":"1","4":"1.8%"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
+{"columns":[{"label":["ExamName"],"name":[1],"type":["chr"],"align":["left"]},{"label":["AP_Result"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["Percent"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Biology","2":"1","3":"33","4":"63.5%"},{"1":"Biology","2":"2","3":"11","4":"21.2%"},{"1":"Biology","2":"3","3":"7","4":"13.5%"},{"1":"Biology","2":"4","3":"1","4":"1.9%"},{"1":"Chemistry","2":"1","3":"1","4":"100.0%"},{"1":"Environmental Science","2":"1","3":"37","4":"67.3%"},{"1":"Environmental Science","2":"2","3":"8","4":"14.5%"},{"1":"Environmental Science","2":"3","3":"5","4":"9.1%"},{"1":"Environmental Science","2":"4","3":"4","4":"7.3%"},{"1":"Environmental Science","2":"5","3":"1","4":"1.8%"},{"1":"Physics 1","2":"1","3":"24","4":"100.0%"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[11]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -248,18 +248,18 @@ pre code {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgICBcbiAgZmlsdGVyKEV4YW1OYW1lICVpbiUgYyhcIkJpb2xvZ3lcIiwgXCJFbnZpcm9ubWVudGFsIFNjaWVuY2VcIiwgXCJDaGVtaXN0cnlcIiksIFxuICAgICAgICAgQWRtaW5ZZWFyID09IFwiMjJcIikgJT4lIFxuICBncm91cF9ieShFeGFtTmFtZSkgJT4lXG4gIHN1bW1hcml6ZShNZWFuQVBTY29yZSA9IG1lYW4oQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpLFxuICAgICAgICAgICAgU0RBUFNjb3JlID0gc2QoQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgICBcbiAgZmlsdGVyKEV4YW1OYW1lICVpbiUgYyhcIkJpb2xvZ3lcIiwgXCJFbnZpcm9ubWVudGFsIFNjaWVuY2VcIiwgXCJDaGVtaXN0cnlcIiwgXCJQaHlzaWNzIDFcIiksIFxuICAgICAgICAgQWRtaW5ZZWFyID09IFwiMjJcIikgJT4lIFxuICBncm91cF9ieShFeGFtTmFtZSkgJT4lXG4gIHN1bW1hcml6ZShNZWFuQVBTY29yZSA9IG1lYW4oQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpLFxuICAgICAgICAgICAgU0RBUFNjb3JlID0gc2QoQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpKVxuYGBgIn0= -->
 <pre class="r"><code>df_ap_survey_takers %&gt;%   
-  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;, &quot;Chemistry&quot;), 
+  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;, &quot;Chemistry&quot;, &quot;Physics 1&quot;), 
          AdminYear == &quot;22&quot;) %&gt;% 
   group_by(ExamName) %&gt;%
   summarize(MeanAPScore = mean(AP_Result, na.rm = TRUE),
             SDAPScore = sd(AP_Result, na.rm = TRUE))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIzIHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWUdWZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R29Bd25pSzRBcWhJR0syVmdFSUJxQVVtd08yWG01K1NuVjBLNW5NNFpxYm1aeFNWRk1BRlIxN3l5ektMOHZOelV2SkxFSElYZzVNelV2T1JVb0FRZnlCRDdIM003Yjh6dHZHbi9nUUVNN0g4K0Vacm5xUGtFTHY5eTYxZFI1aWtzOVdCNTlrWDJIM1ljUGVoOTBSVE5kYXg1aWJtcHhXZ3U0M0N0U016MUEwcEErZHkrcVlsNWpnSEJ5ZmxGTUNIT1lCZVlBS3FCbkVYNTVYb3dRM21CbUtrQlNQei8vLzh2dXMzSk9ZbkZNSnRoZ2x3cGlTV0plbWxGSUxzWkdQNmhhV0hQTHlqSnpNOERhbUlDQlNncm1tYkdJalFCL3RJOGtFdFNkSk16U3ZPeWRZMUJGb0NsSVlBWHltWkdaWU9zWlBvUE5Zb1ZhaFJiYWw1NlpoN005Nnc1aVVtcE9WQU9IOURIWUEvckZSUmw1cFhBZkFJVUxkWXJ5UWRHSFV3a09UOEhKZ0wyRzhNL0FHb2JCQkZJQWdBQSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NCwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI0IHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJQVThDTVJoK3VRK1FNNkRSc0xNNmNBa1k1Z3NLazlFUVdWaHJxZEI0MTVLN1EySFNsZDBWQi8rRGlhdURQOEJOZHhZM0ZoTk5ER2Z2YUlsY2s3YnY4N3pQKzlXZU43dUhWdGNDQUIwTU1FRTNoUW5aNDNhMVZxOEJHSnBBR2VISngvZFlxUFlUS2NDdTJJWjA1STRvZDNsL0ltSCtlRUE4R29TK0lrb3RkazE5emp6Q1F1U1dPNWdTaG9sU3R3ZVRnT0tnWEJXZ0dHZDF2bWZUOTluMHcxbEFzcHlmK2Q1RDQyQ3U4RnIzK2ZSVjB1K04yNFRQUFRxTDU5ZVhrN2Y2V3JYWnZzbVFSd0xadWk3SnJkWVllV2ZDSWZIMktVR3MwZTVnN3E4YjdEUVZzWmt3Ny9NYld5VXRpSzNkaVNPS290OTBaZXlpUUZWV3BOVkRJYkl2L2JnMndESVZrdVBEa0hJbWdyVDR4YzFVY01aUEVUc2pGbmZTcStEQmlGMVY0amV3RXZkcUZhUnQvTFAxVlVrdGtxbE1tU3BMV0o4eU5iM3BvZ3ZpU2xBVUV5Y0QyME9mc2xCTkl0akFEcm40VzhWZzdpb21tUTJXZi9Vb3FxbHBBZ0FBIn0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["ExamName"],"name":[1],"type":["chr"],"align":["left"]},{"label":["MeanAPScore"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["SDAPScore"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Biology","2":"1.538462","3":"0.8034616"},{"1":"Chemistry","2":"1.000000","3":"NA"},{"1":"Environmental Science","2":"1.618182","3":"1.0451105"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+{"columns":[{"label":["ExamName"],"name":[1],"type":["chr"],"align":["left"]},{"label":["MeanAPScore"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["SDAPScore"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Biology","2":"1.538462","3":"0.8034616"},{"1":"Chemistry","2":"1.000000","3":"NA"},{"1":"Environmental Science","2":"1.618182","3":"1.0451105"},{"1":"Physics 1","2":"1.000000","3":"0.0000000"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -286,9 +286,130 @@ pre code {
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiVcbiAgZmlsdGVyKEV4YW1OYW1lICVpbiUgYyhcIkJpb2xvZ3lcIiwgXCJFbnZpcm9ubWVudGFsIFNjaWVuY2VcIiwgXCJDaGVtaXN0cnlcIiksIFxuICAgICAgICAgQWRtaW5ZZWFyID09IFwiMjJcIikgJT4lXG4gIG11dGF0ZShQYXNzZWRFeGFtID0gaWZfZWxzZShBUF9SZXN1bHQgJWluJSBjKDMsIDQsIDUpLCBcIlNjb3JlZCAzK1wiLCBcIlNjb3JlZCBCZWxvdyAzXCIpKSAlPiVcbiAgZ3JvdXBfYnkoUGFzc2VkRXhhbSkgJT4lXG4gIHN1bW1hcml6ZShuID0gbigpKSAlPiVcbiAgdW5ncm91cCgpICU+JVxuICBtdXRhdGUoUGVyY2VudFBhc3NlZCA9IG4gLyBzdW0obikpXG5gYGAifQ== -->
+<pre class="r"><code>df_ap_survey_takers %&gt;%
+  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;, &quot;Chemistry&quot;), 
+         AdminYear == &quot;22&quot;) %&gt;%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), &quot;Scored 3+&quot;, &quot;Scored Below 3&quot;)) %&gt;%
+  group_by(PassedExam) %&gt;%
+  summarize(n = n()) %&gt;%
+  ungroup() %&gt;%
+  mutate(PercentPassed = n / sum(n))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJ6V3JETUF4V2s3b2pobXhqZTRIZVN3TnQyTG13bjN2WUdKVGQzTVRid2x5N09DN3RjYyt6UGNkZVpnL1JUSFpzR0JiWWtUNTkwaWM1ai9mcmtxNHBBS1F3QmdJcFFSY21kOVZpZWJNRUdDY1lqVENUMmU4UldkZU9DbkNKSi9HSjdLbFdtamZUY3VhQmN3L2NjcUVPMHhLUjNORUJydkM4V0lhTlZ6L1B6bGEvWDlhK0l6MGkyWlozWGl2MUlLMVkxL0htNGNpMllTenBuYnppdXViU0RJeW9XYWJWb1FnTjNUU2ZlUFY5ZjRwVmE0SDFYaldBdEdHR0ZhOGE2ekdLUzg3VXpyUktZbEZpbjRkRXhTTWRBUmQ3YVNkcDV2WDdYbjdNRjFiQXBRZkx2Wi84ODlOQk11bDlLK0piVGJoOGF5VVBzd3UyNFNMOEJOellMVnpzZEN0TjJBVFJyakRLc01DanRSSUJjYnZCNlEvV1hNYVhGZ0lBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["PassedExam"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["PercentPassed"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Scored 3+","2":"18","3":"0.1666667"},{"1":"Scored Below 3","2":"90","3":"0.8333333"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgXG4gIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoXCJCaW9sb2d5XCIsIFwiRW52aXJvbm1lbnRhbCBTY2llbmNlXCIsIFwiQ2hlbWlzdHJ5XCIsIFwiUGh5c2ljcyAxXCIpLCBcbiAgICAgICAgIEFkbWluWWVhciA9PSBcIjIyXCIpICU+JVxuICBtdXRhdGUoUGFzc2VkRXhhbSA9IGlmX2Vsc2UoQVBfUmVzdWx0ICVpbiUgYygzLCA0LCA1KSwgXCJTY29yZWQgMytcIiwgXCJTY29yZWQgQmVsb3cgM1wiKSkgJT4lXG4gIGdyb3VwX2J5KEV4YW1OYW1lLCBQYXNzZWRFeGFtKSAlPiVcbiAgc3VtbWFyaXplKG4gPSBuKCkpICU+JVxuICAjIHVuZ3JvdXAoKSAlPiVcbiAgbXV0YXRlKFBlcmNlbnRQYXNzZWQgPSBuIC8gc3VtKG4pKVxuYGBgIn0= -->
+<pre class="r"><code>df_ap_survey_takers %&gt;% 
+  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;, &quot;Chemistry&quot;, &quot;Physics 1&quot;), 
+         AdminYear == &quot;22&quot;) %&gt;%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), &quot;Scored 3+&quot;, &quot;Scored Below 3&quot;)) %&gt;%
+  group_by(ExamName, PassedExam) %&gt;%
+  summarize(n = n()) %&gt;%
+  # ungroup() %&gt;%
+  mutate(PercentPassed = n / sum(n))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ0V4YW1OYW1lJy4gWW91IGNhbiBvdmVycmlkZSB1c2luZyB0aGUgYC5ncm91cHNgIGFyZ3VtZW50LlxuIn0= -->
+<pre><code>`summarise()` has grouped output by &#39;ExamName&#39;. You can override using the `.groups` argument.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjYsIm5jb2wiOjQsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiNiB4IDQiXSwiR3JvdXBzIjpbIkV4YW1OYW1lIFs0XSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJwMlNQMC9DUUJUQUg5QUNKVUZOME9qWVhha0I0c1RRQk1UUk5MS3dPTlQyaE1iMmpseUx3T2J1dC9BYnNMbzZPUHN0akM3T0R0UjM1UzR4alRIR0p0ZDc5M3Z2M3I5N0Y2ZWpUbTFVQTRBU2FLQkRTVWNSeW4ybjFUNXBBMmhGUEJWUVk0aDlnVllORkRSY084Sk1LaXE5Z0lWc3ZQejVhUFFuSkFyaWhDdXdONkMzQVdjMElqUnhRM1BvQllSNjVDOUt3NWtzNDhDTHpWWXVBMlBvTVU1OHMzTW93WllFUFJLeXVkbjVsZjd6TWtBOXl3Q2dpdXNvYXhTQWFHVVQxNEc0SWZUMjA2cmJXSFYzN2ZkR0p0Z2ZrSDMyOCtBbHVkdy9zOStzKzRmWHgyUEZjMDNYdmRDTlkxbXVnalhmVFZ6cm1yc1J5Wmtibk0wdGlqeVcrUlh2OEplbTZXZmVyekxheVI1MEE2dURoUnVkQzY4eWpvT3hpUytvbWdFcWhicER1SWR2dExGQXNNNEZxTEJwRWpDS0lZcGladlJjQ1FXZUE5c3pLbEx5bTk1a1JtK2FMZG5MZ214S1hjcmxiN0syQ2FtbDBwVXVYWlVKSFFkVUZhR0g3aFVKMVNOaWY3TEtyU2tQYUtMcVJCcGJDY09KVThSam9TSlpiYkQrQW5PRVdLQXJBd0FBIn0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ExamName"],"name":[1],"type":["chr"],"align":["left"]},{"label":["PassedExam"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["PercentPassed"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Biology","2":"Scored 3+","3":"8","4":"0.1538462"},{"1":"Biology","2":"Scored Below 3","3":"44","4":"0.8461538"},{"1":"Chemistry","2":"Scored Below 3","3":"1","4":"1.0000000"},{"1":"Environmental Science","2":"Scored 3+","3":"10","4":"0.1818182"},{"1":"Environmental Science","2":"Scored Below 3","3":"45","4":"0.8181818"},{"1":"Physics 1","2":"Scored Below 3","3":"24","4":"1.0000000"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiVcbiAgZmlsdGVyKEV4YW1OYW1lICVpbiUgYyhcIkJpb2xvZ3lcIiwgXCJFbnZpcm9ubWVudGFsIFNjaWVuY2VcIiwgXCJDaGVtaXN0cnlcIiwgXCJQaHlzaWNzIDFcIiksIFxuICAgICAgICAgQWRtaW5ZZWFyID09IFwiMjJcIikgJT4lXG4gIG11dGF0ZShQYXNzZWRFeGFtID0gaWZfZWxzZShBUF9SZXN1bHQgJWluJSBjKDMsIDQsIDUpLCBcIlNjb3JlZCAzK1wiLCBcIlNjb3JlZCBCZWxvdyAzXCIpKSAlPiVcbiAgZ3JvdXBfYnkoRXhhbU5hbWUsIFBhc3NlZEV4YW0pICU+JVxuICBzdW1tYXJpemUobiA9IG4oKSkgJT4lXG4gICMgdW5ncm91cCgpICU+JVxuICBtdXRhdGUoUGVyY2VudFBhc3NlZCA9IG4gLyBzdW0obikpXG5gYGAifQ== -->
+<pre class="r"><code>df_ap_survey_takers %&gt;%
+  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;, &quot;Chemistry&quot;, &quot;Physics 1&quot;), 
+         AdminYear == &quot;22&quot;) %&gt;%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), &quot;Scored 3+&quot;, &quot;Scored Below 3&quot;)) %&gt;%
+  group_by(ExamName, PassedExam) %&gt;%
+  summarize(n = n()) %&gt;%
+  # ungroup() %&gt;%
+  mutate(PercentPassed = n / sum(n))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ0V4YW1OYW1lJy4gWW91IGNhbiBvdmVycmlkZSB1c2luZyB0aGUgYC5ncm91cHNgIGFyZ3VtZW50LlxuIn0= -->
+<pre><code>`summarise()` has grouped output by &#39;ExamName&#39;. You can override using the `.groups` argument.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjYsIm5jb2wiOjQsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiNiB4IDQiXSwiR3JvdXBzIjpbIkV4YW1OYW1lIFs0XSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJwMlNQMC9DUUJUQUg5QUNKVUZKME9qWVhha0JvZ3RERXhCSDA4akM0bERiRXk2V085SVdnYzNkYitFM1lIVjFjUFpiR0YyY0hhanZ5bDFpR21PTVRhNzM3dmZldlgvM0xrNkg3Y3F3QWdBRjBFQ0hnbzRpRkh0T3MzWGNBdER5ZU1xaHhoRDdBcTNxS0dpNGFzSk1La3BkeWdNK1d2NThOSHBqTXFGUkhDcXcyMmUzTk9Sc1FsanNCdWJBbzRSNTVDOUt3eGt2SStwRlpqT1RnVEh3ZUVoOHMzMGd3WllFWFJMd3VkbitsZjd6TWtBMXpRQ2dqT3N3YlJTQWFHVUQxNzY0SWZUMjA2cFRYM1YyN1BkNkt0Z2ZrSDcyYy84bHZ0dzdzOStzKzRmWHh5UEZNMDNYdmNDTklsbXVnaFhmalYzck9uUW5KR051aEh4dU1lU1J6QzkvaDc4a1NUNnpmcFZSTFgzUURTejNGKzdrWEhpVmNSeU1UWHhCMVF3d0tWUWRFbnI0UmhzTEJPdE1nQktmeHBRekRKRVhNNk5uU3NpRkdiQTlZeUlsditHTloreW1jU0o3bVpOTnFVcTUrRTNXTmlHMVJMclNwYXNpWVNQS1ZCRjY0RjZSUUQwaTlpZXQzSnFHbE1XcVRxU1JGWE9jT0VVOEhpaVMxZ2JyTDl4c3MxTXJBd0FBIn0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ExamName"],"name":[1],"type":["chr"],"align":["left"]},{"label":["PassedExam"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["PercentPassed"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Biology","2":"Scored 3+","3":"8","4":"0.1538462"},{"1":"Biology","2":"Scored Below 3","3":"44","4":"0.8461538"},{"1":"Chemistry","2":"Scored Below 3","3":"1","4":"1.0000000"},{"1":"Environmental Science","2":"Scored 3+","3":"10","4":"0.1818182"},{"1":"Environmental Science","2":"Scored Below 3","3":"45","4":"0.8181818"},{"1":"Physics 1","2":"Scored Below 3","3":"24","4":"1.0000000"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="distributions-by-dosage" class="section level2">
+<h2>Distributions by dosage</h2>
+<p>Excluding Chemistry due to low intake, Physics because no one passed. (Traditionally what happens). This has not significantly changed the overall story of the distributions.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYXBfc3VydmV5X3Rha2VycyAlPiVcbiAgZmlsdGVyKEV4YW1OYW1lICVpbiUgYyhcIkJpb2xvZ3lcIiwgXCJFbnZpcm9ubWVudGFsIFNjaWVuY2VcIiksIFxuICAgICAgICAgQWRtaW5ZZWFyID09IFwiMjJcIikgJT4lXG4gIG11dGF0ZShQYXNzZWRFeGFtID0gaWZfZWxzZShBUF9SZXN1bHQgJWluJSBjKDMsIDQsIDUpLCBcIlNjb3JlZCAzK1wiLCBcIlNjb3JlZCBCZWxvdyAzXCIpKSAlPiVcbiAgZ3JvdXBfYnkoUGFzc2VkRXhhbSwgQ1JEb3NlR3JvdXApICU+JVxuICBzdW1tYXJpemUobiA9IG4oKSkgJT4lXG4gICMgdW5ncm91cCgpICU+JVxuICBtdXRhdGUoUGVyY2VudFBhc3NlZCA9IG4gLyBzdW0obikpICU+JVxuICBwaXZvdF93aWRlcihuYW1lc19mcm9tID0gQ1JEb3NlR3JvdXAsXG4gICAgICAgICAgICAgIHZhbHVlc19mcm9tID0gYyhuLCBQZXJjZW50UGFzc2VkKSlcbmBgYCJ9 -->
+<pre class="r"><code>df_ap_survey_takers %&gt;%
+  filter(ExamName %in% c(&quot;Biology&quot;, &quot;Environmental Science&quot;), 
+         AdminYear == &quot;22&quot;) %&gt;%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), &quot;Scored 3+&quot;, &quot;Scored Below 3&quot;)) %&gt;%
+  group_by(PassedExam, CRDoseGroup) %&gt;%
+  summarize(n = n()) %&gt;%
+  # ungroup() %&gt;%
+  mutate(PercentPassed = n / sum(n)) %&gt;%
+  pivot_wider(names_from = CRDoseGroup,
+              values_from = c(n, PercentPassed))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYHN1bW1hcmlzZSgpYCBoYXMgZ3JvdXBlZCBvdXRwdXQgYnkgJ1Bhc3NlZEV4YW0nLiBZb3UgY2FuIG92ZXJyaWRlIHVzaW5nIHRoZSBgLmdyb3Vwc2AgYXJndW1lbnQuXG4ifQ== -->
+<pre><code>`summarise()` has grouped output by &#39;PassedExam&#39;. You can override using the `.groups` argument.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjIsIm5jb2wiOjUsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMiB4IDUiXSwiR3JvdXBzIjpbIlBhc3NlZEV4YW0gWzJdIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQm0xU1Mwc0RNUkFldDkxS0Yxc0xldERiNGxXNjlJR0lJQlI4SElYaWk5NUszSTEyY1p1VVRVcDc5T1ovMGQraEo4R3I5OTc4RVYwbjI2VFVhR0IyWjc3NU1wbjVrc3V6WHR2cmVRQlFnQ0s0VUhEUmhkSnB0OWs2YUFFVUhZeldNRk5XL3lteXR0QlJuQnFhb3hQbHE1Q25OUExiK3hxb2F1Q0VKbnppdHhHcDVIU0FUYlM5bGJpQWRxaDJxTGp6L2FMV2ErZExWTW5IMGZNU2Y3dkpWMmYyUHYzY25SMWJmYmxoUW9UUVBSblFpNGdrd1gxS2h0U2lsMU0rQ1JqaXd2VHhoSjhzeStaMlhVT3E1VFBydWwwOGkwYm5VekxVeUFick4rb3QvellXc1JRYTIyYjlDMVRBdng0UTVsdTVuUzVOUThya290RGZ2Zjd2L0Q5MUFPeFcxL2xJeHB4aHlsbTlvT1hOcFJaUUd6TTFYRlFQQjJQMldHODIxR1I1ZnJFcTJuZFdmSGR4WmpHekZDbFI5aEF6YWtSTHlCMU56RHRBcVhNUmcxRWFNMmtrUkZRRWtrdGllRjdJRTRQa3c4SDhCNUkya3VhWkFnQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["PassedExam"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n_0-2 Visits"],"name":[2],"type":["int"],"align":["right"]},{"label":["n_More Than 2 Visits"],"name":[3],"type":["int"],"align":["right"]},{"label":["PercentPassed_0-2 Visits"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["PercentPassed_More Than 2 Visits"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Scored 3+","2":"15","3":"3","4":"0.8333333","5":"0.1666667"},{"1":"Scored Below 3","2":"34","3":"55","4":"0.3820225","5":"0.6179775"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="tests-on-pass-rates" class="section level2">
+<h2>Tests on pass rates</h2>
+<p>Because <span class="math inline">\(n_{\rm Scored 3+}\)</span> is so small, we should use a Fisher exact test to test the differences in proportions.</p>
+<ul>
+<li>H0: The proportion of those who pass and had a high dose perform at the same rate as those who pass and had a low dose.</li>
+<li>HA: Not.</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKHB2YWxfZmlzaGVyX2FwIDwtIDEgLSBwaHlwZXIocSA9IDE1IC0gMSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtID0gMTUgKyAzLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG4gPSAzNCArIDU1LCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGsgPSAxNSArIDM0KSlcbmBgYCJ9 -->
+<pre class="r"><code>(pval_fisher_ap &lt;- 1 - phyper(q = 15 - 1, 
+                              m = 15 + 3, 
+                              n = 34 + 55, 
+                              k = 15 + 34))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwNDY5OTY2OFxuIn0= -->
+<pre><code>[1] 0.0004699668</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Because the p-value 4.6996682^{-4} &lt; 0.05, we reject H0. There is significant evidence that AP pass rates are different by dosage.</p>
+<!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFQIFNjaWVuY2UgQW5hbHlzaXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIyBOb3RlYm9vayBzZXR1cA0KDQoqIEZpbGVuYW1lOiAwOC1hcC1hbmFseXNpcy5SbWQNCiogUGF0aDogc3JjLzA4LWFwLWFuYWx5c2lzLlJtZA0KKiBBdXRob3I6IFN0ZXZlbiBNYWNhcGFnYWwNCiogRGF0ZSBjcmVhdGVkOiAyMDIyLTA3LTE5DQoqIERhdGUgbW9kaWZpZWQ6IDIwMjItMDctMTkNCiogUHVycG9zZTogVGhpcyBub3RlYm9vayBwcmVwcyBhbmQgY29uZHVjdHMgYW5hbHlzaXMgZm9yIEFQIHNjb3JlcyBmb3IgUXVlc3Rpb24gMy4NCiogSW5wdXRzOiBkZl9hcF9hdHRlbmRlZXMsIGRmX2FwX3N1cnZleV90YWtlcnMNCiogT3V0cHV0czogDQoqIE5vdGVzOg0KDQoNCmBgYHtyfQ0KZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgDQogIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoIkJpb2xvZ3kiLCAiRW52aXJvbm1lbnRhbCBTY2llbmNlIiwgIkNoZW1pc3RyeSIpKSAlPiUNCiAgZ3JvdXBfYnkoRXhhbU5hbWUpICU+JSANCiAgY291bnQoQVBfUmVzdWx0KSAlPiUgDQogIG11dGF0ZShQZXJjZW50ID0gc2NhbGVzOjpsYWJlbF9wZXJjZW50KGFjY3VyYWN5ID0gMC4xKShuIC8gc3VtKG4pKSkNCmBgYA0KDQpgYGB7cn0NCmRmX2FwX3N1cnZleV90YWtlcnMgJT4lICAgDQogIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoIkJpb2xvZ3kiLCAiRW52aXJvbm1lbnRhbCBTY2llbmNlIiwgIkNoZW1pc3RyeSIpLCANCiAgICAgICAgIEFkbWluWWVhciA9PSAiMjIiKSAlPiUgDQogIGdyb3VwX2J5KEV4YW1OYW1lKSAlPiUNCiAgc3VtbWFyaXplKE1lYW5BUFNjb3JlID0gbWVhbihBUF9SZXN1bHQsIG5hLnJtID0gVFJVRSksDQogICAgICAgICAgICBTREFQU2NvcmUgPSBzZChBUF9SZXN1bHQsIG5hLnJtID0gVFJVRSkpDQpgYGANCg0KYGBge3J9DQpkZl9hcF9zdXJ2ZXlfdGFrZXJzICU+JSAgIA0KICBmaWx0ZXIoRXhhbU5hbWUgJWluJSBjKCJCaW9sb2d5IiwgIkVudmlyb25tZW50YWwgU2NpZW5jZSIsICJDaGVtaXN0cnkiKSwgDQogICAgICAgICBBZG1pblllYXIgPT0gIjIyIikgJT4lIA0KICBncm91cF9ieShDUkRvc2VHcm91cCkgJT4lDQogIHN1bW1hcml6ZShNZWFuQVBTY29yZSA9IG1lYW4oQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpLA0KICAgICAgICAgICAgU0RBUFNjb3JlID0gc2QoQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpLA0KICAgICAgICAgICAgbiA9IG4oKSkNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFQIFNjaWVuY2UgQW5hbHlzaXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIyBOb3RlYm9vayBzZXR1cA0KDQoqIEZpbGVuYW1lOiAwOC1hcC1hbmFseXNpcy5SbWQNCiogUGF0aDogc3JjLzA4LWFwLWFuYWx5c2lzLlJtZA0KKiBBdXRob3I6IFN0ZXZlbiBNYWNhcGFnYWwNCiogRGF0ZSBjcmVhdGVkOiAyMDIyLTA3LTE5DQoqIERhdGUgbW9kaWZpZWQ6IDIwMjItMDctMTkNCiogUHVycG9zZTogVGhpcyBub3RlYm9vayBwcmVwcyBhbmQgY29uZHVjdHMgYW5hbHlzaXMgZm9yIEFQIHNjb3JlcyBmb3IgUXVlc3Rpb24gMy4NCiogSW5wdXRzOiBkZl9hcF9hdHRlbmRlZXMsIGRmX2FwX3N1cnZleV90YWtlcnMNCiogT3V0cHV0czogDQoqIE5vdGVzOg0KDQoNCmBgYHtyfQ0KZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgDQogIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoIkJpb2xvZ3kiLCAiRW52aXJvbm1lbnRhbCBTY2llbmNlIiwgIkNoZW1pc3RyeSIsICJQaHlzaWNzIDEiKSkgJT4lDQogIGdyb3VwX2J5KEV4YW1OYW1lKSAlPiUgDQogIGNvdW50KEFQX1Jlc3VsdCkgJT4lIA0KICBtdXRhdGUoUGVyY2VudCA9IHNjYWxlczo6bGFiZWxfcGVyY2VudChhY2N1cmFjeSA9IDAuMSkobiAvIHN1bShuKSkpDQpgYGANCg0KYGBge3J9DQpkZl9hcF9zdXJ2ZXlfdGFrZXJzICU+JSAgIA0KICBmaWx0ZXIoRXhhbU5hbWUgJWluJSBjKCJCaW9sb2d5IiwgIkVudmlyb25tZW50YWwgU2NpZW5jZSIsICJDaGVtaXN0cnkiLCAiUGh5c2ljcyAxIiksIA0KICAgICAgICAgQWRtaW5ZZWFyID09ICIyMiIpICU+JSANCiAgZ3JvdXBfYnkoRXhhbU5hbWUpICU+JQ0KICBzdW1tYXJpemUoTWVhbkFQU2NvcmUgPSBtZWFuKEFQX1Jlc3VsdCwgbmEucm0gPSBUUlVFKSwNCiAgICAgICAgICAgIFNEQVBTY29yZSA9IHNkKEFQX1Jlc3VsdCwgbmEucm0gPSBUUlVFKSkNCmBgYA0KDQpgYGB7cn0NCmRmX2FwX3N1cnZleV90YWtlcnMgJT4lICAgDQogIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoIkJpb2xvZ3kiLCAiRW52aXJvbm1lbnRhbCBTY2llbmNlIiwgIkNoZW1pc3RyeSIsICJQaHlzaWNzIDEiKSwgDQogICAgICAgICBBZG1pblllYXIgPT0gIjIyIikgJT4lIA0KICBncm91cF9ieShDUkRvc2VHcm91cCkgJT4lDQogIHN1bW1hcml6ZShNZWFuQVBTY29yZSA9IG1lYW4oQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpLA0KICAgICAgICAgICAgU0RBUFNjb3JlID0gc2QoQVBfUmVzdWx0LCBuYS5ybSA9IFRSVUUpLA0KICAgICAgICAgICAgbiA9IG4oKSkNCmBgYA0KDQpgYGB7cn0NCmRmX2FwX3N1cnZleV90YWtlcnMgJT4lDQogIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoIkJpb2xvZ3kiLCAiRW52aXJvbm1lbnRhbCBTY2llbmNlIiwgIkNoZW1pc3RyeSIsICJQaHlzaWNzIDEiKSwgDQogICAgICAgICBBZG1pblllYXIgPT0gIjIyIikgJT4lDQogIG11dGF0ZShQYXNzZWRFeGFtID0gaWZfZWxzZShBUF9SZXN1bHQgJWluJSBjKDMsIDQsIDUpLCAiU2NvcmVkIDMrIiwgIlNjb3JlZCBCZWxvdyAzIikpICU+JQ0KICBncm91cF9ieShQYXNzZWRFeGFtKSAlPiUNCiAgc3VtbWFyaXplKG4gPSBuKCkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIG11dGF0ZShQZXJjZW50UGFzc2VkID0gbiAvIHN1bShuKSkNCmBgYA0KDQoNCmBgYHtyfQ0KZGZfYXBfc3VydmV5X3Rha2VycyAlPiUgDQogIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoIkJpb2xvZ3kiLCAiRW52aXJvbm1lbnRhbCBTY2llbmNlIiwgIkNoZW1pc3RyeSIsICJQaHlzaWNzIDEiKSwgDQogICAgICAgICBBZG1pblllYXIgPT0gIjIyIikgJT4lDQogIG11dGF0ZShQYXNzZWRFeGFtID0gaWZfZWxzZShBUF9SZXN1bHQgJWluJSBjKDMsIDQsIDUpLCAiU2NvcmVkIDMrIiwgIlNjb3JlZCBCZWxvdyAzIikpICU+JQ0KICBncm91cF9ieShFeGFtTmFtZSwgUGFzc2VkRXhhbSkgJT4lDQogIHN1bW1hcml6ZShuID0gbigpKSAlPiUNCiAgIyB1bmdyb3VwKCkgJT4lDQogIG11dGF0ZShQZXJjZW50UGFzc2VkID0gbiAvIHN1bShuKSkNCmBgYA0KDQpgYGB7cn0NCmRmX2FwX3N1cnZleV90YWtlcnMgJT4lDQogIGZpbHRlcihFeGFtTmFtZSAlaW4lIGMoIkJpb2xvZ3kiLCAiRW52aXJvbm1lbnRhbCBTY2llbmNlIiwgIkNoZW1pc3RyeSIsICJQaHlzaWNzIDEiKSwgDQogICAgICAgICBBZG1pblllYXIgPT0gIjIyIikgJT4lDQogIG11dGF0ZShQYXNzZWRFeGFtID0gaWZfZWxzZShBUF9SZXN1bHQgJWluJSBjKDMsIDQsIDUpLCAiU2NvcmVkIDMrIiwgIlNjb3JlZCBCZWxvdyAzIikpICU+JQ0KICBncm91cF9ieShFeGFtTmFtZSwgUGFzc2VkRXhhbSkgJT4lDQogIHN1bW1hcml6ZShuID0gbigpKSAlPiUNCiAgIyB1bmdyb3VwKCkgJT4lDQogIG11dGF0ZShQZXJjZW50UGFzc2VkID0gbiAvIHN1bShuKSkNCmBgYA0KDQojIyBEaXN0cmlidXRpb25zIGJ5IGRvc2FnZQ0KDQpFeGNsdWRpbmcgQ2hlbWlzdHJ5IGR1ZSB0byBsb3cgaW50YWtlLCBQaHlzaWNzIGJlY2F1c2Ugbm8gb25lIHBhc3NlZC4gKFRyYWRpdGlvbmFsbHkgd2hhdCBoYXBwZW5zKS4gVGhpcyBoYXMgbm90IHNpZ25pZmljYW50bHkgY2hhbmdlZCB0aGUgb3ZlcmFsbCBzdG9yeSBvZiB0aGUgZGlzdHJpYnV0aW9ucy4NCg0KYGBge3J9DQpkZl9hcF9zdXJ2ZXlfdGFrZXJzICU+JQ0KICBmaWx0ZXIoRXhhbU5hbWUgJWluJSBjKCJCaW9sb2d5IiwgIkVudmlyb25tZW50YWwgU2NpZW5jZSIpLCANCiAgICAgICAgIEFkbWluWWVhciA9PSAiMjIiKSAlPiUNCiAgbXV0YXRlKFBhc3NlZEV4YW0gPSBpZl9lbHNlKEFQX1Jlc3VsdCAlaW4lIGMoMywgNCwgNSksICJTY29yZWQgMysiLCAiU2NvcmVkIEJlbG93IDMiKSkgJT4lDQogIGdyb3VwX2J5KFBhc3NlZEV4YW0sIENSRG9zZUdyb3VwKSAlPiUNCiAgc3VtbWFyaXplKG4gPSBuKCkpICU+JQ0KICAjIHVuZ3JvdXAoKSAlPiUNCiAgbXV0YXRlKFBlcmNlbnRQYXNzZWQgPSBuIC8gc3VtKG4pKSAlPiUNCiAgcGl2b3Rfd2lkZXIobmFtZXNfZnJvbSA9IENSRG9zZUdyb3VwLA0KICAgICAgICAgICAgICB2YWx1ZXNfZnJvbSA9IGMobiwgUGVyY2VudFBhc3NlZCkpDQpgYGANCg0KDQojIyBUZXN0cyBvbiBwYXNzIHJhdGVzDQoNCkJlY2F1c2UgJG5fe1xybSBTY29yZWQgMyt9JCBpcyBzbyBzbWFsbCwgd2Ugc2hvdWxkIHVzZSBhIEZpc2hlciBleGFjdCB0ZXN0IHRvIHRlc3QgdGhlIGRpZmZlcmVuY2VzIGluIHByb3BvcnRpb25zLg0KDQoqIEgwOiBUaGUgcHJvcG9ydGlvbiBvZiB0aG9zZSB3aG8gcGFzcyBhbmQgaGFkIGEgaGlnaCBkb3NlIHBlcmZvcm0gYXQgdGhlIHNhbWUgcmF0ZSBhcyB0aG9zZSB3aG8gcGFzcyBhbmQgaGFkIGEgbG93IGRvc2UuDQoqIEhBOiBOb3QuDQoNCmBgYHtyfQ0KKHB2YWxfZmlzaGVyX2FwIDwtIDEgLSBwaHlwZXIocSA9IDE1IC0gMSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtID0gMTUgKyAzLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG4gPSAzNCArIDU1LCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGsgPSAxNSArIDM0KSkNCg0KYGBgDQoNCkJlY2F1c2UgdGhlIHAtdmFsdWUgYHIgcHZhbF9maXNoZXJfYXBgIDwgMC4wNSwgd2UgcmVqZWN0IEgwLiBUaGVyZSBpcyBzaWduaWZpY2FudCBldmlkZW5jZSB0aGF0IEFQIHBhc3MgcmF0ZXMgYXJlIGRpZmZlcmVudCBieSBkb3NhZ2Uu</div>
 
 
 

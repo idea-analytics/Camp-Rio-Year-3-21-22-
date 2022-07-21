@@ -18,7 +18,7 @@ output: html_notebook
 
 ```{r}
 df_ap_survey_takers %>% 
-  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry")) %>%
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry", "Physics 1")) %>%
   group_by(ExamName) %>% 
   count(AP_Result) %>% 
   mutate(Percent = scales::label_percent(accuracy = 0.1)(n / sum(n)))
@@ -26,7 +26,7 @@ df_ap_survey_takers %>%
 
 ```{r}
 df_ap_survey_takers %>%   
-  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry"), 
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry", "Physics 1"), 
          AdminYear == "22") %>% 
   group_by(ExamName) %>%
   summarize(MeanAPScore = mean(AP_Result, na.rm = TRUE),
@@ -35,7 +35,7 @@ df_ap_survey_takers %>%
 
 ```{r}
 df_ap_survey_takers %>%   
-  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry"), 
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry", "Physics 1"), 
          AdminYear == "22") %>% 
   group_by(CRDoseGroup) %>%
   summarize(MeanAPScore = mean(AP_Result, na.rm = TRUE),
@@ -43,3 +43,71 @@ df_ap_survey_takers %>%
             n = n())
 ```
 
+```{r}
+df_ap_survey_takers %>%
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry", "Physics 1"), 
+         AdminYear == "22") %>%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), "Scored 3+", "Scored Below 3")) %>%
+  group_by(PassedExam) %>%
+  summarize(n = n()) %>%
+  ungroup() %>%
+  mutate(PercentPassed = n / sum(n))
+```
+
+
+```{r}
+df_ap_survey_takers %>% 
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry", "Physics 1"), 
+         AdminYear == "22") %>%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), "Scored 3+", "Scored Below 3")) %>%
+  group_by(ExamName, PassedExam) %>%
+  summarize(n = n()) %>%
+  # ungroup() %>%
+  mutate(PercentPassed = n / sum(n))
+```
+
+```{r}
+df_ap_survey_takers %>%
+  filter(ExamName %in% c("Biology", "Environmental Science", "Chemistry", "Physics 1"), 
+         AdminYear == "22") %>%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), "Scored 3+", "Scored Below 3")) %>%
+  group_by(ExamName, PassedExam) %>%
+  summarize(n = n()) %>%
+  # ungroup() %>%
+  mutate(PercentPassed = n / sum(n))
+```
+
+## Distributions by dosage
+
+Excluding Chemistry due to low intake, Physics because no one passed. (Traditionally what happens). This has not significantly changed the overall story of the distributions.
+
+```{r}
+df_ap_survey_takers %>%
+  filter(ExamName %in% c("Biology", "Environmental Science"), 
+         AdminYear == "22") %>%
+  mutate(PassedExam = if_else(AP_Result %in% c(3, 4, 5), "Scored 3+", "Scored Below 3")) %>%
+  group_by(PassedExam, CRDoseGroup) %>%
+  summarize(n = n()) %>%
+  # ungroup() %>%
+  mutate(PercentPassed = n / sum(n)) %>%
+  pivot_wider(names_from = CRDoseGroup,
+              values_from = c(n, PercentPassed))
+```
+
+
+## Tests on pass rates
+
+Because $n_{\rm Scored 3+}$ is so small, we should use a Fisher exact test to test the differences in proportions.
+
+* H0: The proportion of those who pass and had a high dose perform at the same rate as those who pass and had a low dose.
+* HA: Not.
+
+```{r}
+(pval_fisher_ap <- 1 - phyper(q = 15 - 1, 
+                              m = 15 + 3, 
+                              n = 34 + 55, 
+                              k = 15 + 34))
+
+```
+
+Because the p-value `r pval_fisher_ap` < 0.05, we reject H0. There is significant evidence that AP pass rates are different by dosage.
