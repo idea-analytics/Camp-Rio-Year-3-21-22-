@@ -49,7 +49,7 @@ df_science_grades_survey_takers %>%
 
 ## Tests on dosage
 
-grade_i = b_1 * grade_level_id_i + b_2 * dosage_i + b_3 * (grade_level_id * dosage)_i 
+${\rm Grade}_i = b_1{\rm GradeLevelID}_i + b_2{\rm Dosage}_i + b_3({\rm GradeLevelID \times Dosage})_i$ 
 
 First, check the distribution of grades by grade level and dosage. We will test for Normality of each grade level.
 

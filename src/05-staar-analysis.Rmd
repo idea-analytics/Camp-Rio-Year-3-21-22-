@@ -89,3 +89,20 @@ df_staar_science_survey_takers %>%
          PercentMasters = nMasters/nStudents)
 ```
 
+# Distributions of STAAR Scale Score
+
+```{r}
+df_staar_science_survey_takers %>%
+  filter(SubjectCode %in% c("Science", "Biology")) %>%
+  group_by(GradeLevelID.x, SubjectCode, CRDoseGroup) %>%
+  summarize(n = n(),
+            MeanScaleScore = mean(ScaleScore, na.rm=TRUE))
+```
+
+
+Need to redo tests for Normality, homogeneity of variances, and tests for differences in means
+
+```{r}
+
+```
+
