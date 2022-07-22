@@ -110,4 +110,4 @@ Because $n_{\rm Scored 3+}$ is so small, we should use a Fisher exact test to te
 
 ```
 
-Because the p-value `r pval_fisher_ap` < 0.05, we reject H0. There is significant evidence that AP pass rates are different by dosage.
+Because the p-value $P(X \geq 15) =$ `r pval_fisher_ap` < 0.05, we reject H0. There is significant evidence that AP pass rates are different by dosage.

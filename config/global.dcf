@@ -1,7 +1,7 @@
 version: 0.10.2
 data_loading: TRUE
 data_loading_header: TRUE
-data_ignore: *.xlsx
+data_ignore: *.xlsx, *.csv
 cache_loading: TRUE
 recursive_loading: FALSE
 munging: TRUE

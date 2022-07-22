@@ -3,6 +3,18 @@ title: "STAAR analysis"
 output: html_notebook
 ---
 
+## Notebook setup
+
+* Filename: 05-staar-analysis.Rmd
+* Path: src/05-staar-analysis.Rmd
+* Author: Steven Macapagal
+* Date created: 2022-07-22
+* Date modified: 2022-07-22
+* Purpose: This notebook preps and conducts analysis for AP scores for Question 3.
+* Inputs: df_ap_attendees, df_ap_survey_takers
+* Outputs: 
+* Notes:
+
 # Distributions of STAAR scores
 
 This computes the distribution of all science STAAR scores.
@@ -89,6 +101,34 @@ df_staar_science_survey_takers %>%
          PercentMasters = nMasters/nStudents)
 ```
 
+```{r}
+(staar_approaches_by_dose <- df_staar_science_survey_takers %>%
+  select(SubjectCode,
+         GradeLevelID.x,
+         CRDoseGroup,
+         Approaches,
+         Meets,
+         Masters) %>%
+  group_by(SubjectCode,
+           GradeLevelID.x,
+           CRDoseGroup) %>%
+  summarize(nStudents = n(),
+            nApproaches = sum(Approaches),
+            nDoesNotApproach = n() - sum(Approaches)))
+```
+
+Because there are many groups where there are zero students not approaching, tests on proportions may not be appropriate, unless groups are combined and/or a different value is measured. Note that even if we combined all 8th-10th groups with more than 2 visits, there would still be a zero observations category (did not approach AND more than 2 visits).
+
+## Tests on dosage
+
+This was not working when I tried it - will try again on Mon, July 25.
+
+```{r}
+
+```
+
+
+
 # Distributions of STAAR Scale Score
 
 ```{r}
@@ -100,9 +140,20 @@ df_staar_science_survey_takers %>%
 ```
 
 
-Need to redo tests for Normality, homogeneity of variances, and tests for differences in means
+## Tests on dosage
+
+* Normality check
+
+There does not appear to be evidence that the Scale Scores are skewed or have significant depatures from Normality.
 
 ```{r}
+df_staar_science_survey_takers %>%
+  filter(SubjectCode %in% c("Biology", "Science")) %>%
+  ggplot() +
+  geom_histogram(aes(x = ScaleScore)) +
+  facet_grid(SubjectCode ~ CRDoseGroup)
+
 
 ```
+
 
